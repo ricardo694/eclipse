@@ -1,0 +1,509 @@
+fileFormatVersion: 2
+guid: 12605b82eaefb004fb53e31b5ab4317b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1225974526469417938
+    second: protagonist-sheet_0
+  - first:
+      213: 8475615435951142973
+    second: protagonist-sheet_1
+  - first:
+      213: -4085235182094693177
+    second: protagonist-sheet_2
+  - first:
+      213: -5616552385104366498
+    second: protagonist-sheet_3
+  - first:
+      213: -8656507360967386379
+    second: protagonist-sheet_4
+  - first:
+      213: 1023796094522616851
+    second: protagonist-sheet_5
+  - first:
+      213: -410833423324104383
+    second: protagonist-sheet_6
+  - first:
+      213: 4478458043733779553
+    second: protagonist-sheet_7
+  - first:
+      213: 479765567242033041
+    second: protagonist-sheet_8
+  - first:
+      213: 7958994037413849589
+    second: protagonist-sheet_9
+  - first:
+      213: 5392147850124597829
+    second: protagonist-sheet_10
+  - first:
+      213: 3154930418939523360
+    second: protagonist-sheet_11
+  - first:
+      213: 4449344909844539569
+    second: protagonist-sheet_12
+  - first:
+      213: 3771955447901193563
+    second: protagonist-sheet_13
+  - first:
+      213: -2110960335156347521
+    second: protagonist-sheet_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 120
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: protagonist-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e24dc16e9a67cfee0800000000000000
+      internalID: -1225974526469417938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_1
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d387fa0555f6f9570800000000000000
+      internalID: 8475615435951142973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc41531f345e47c0800000000000000
+      internalID: -4085235182094693177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e543b7f0d5ffd02b0800000000000000
+      internalID: -5616552385104366498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa1cf95b68edd780800000000000000
+      internalID: -8656507360967386379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_5
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31ce378af11453e00800000000000000
+      internalID: 1023796094522616851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 20
+        width: 86
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 149b8ec9d2d6c4af0800000000000000
+      internalID: -410833423324104383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 913
+        y: 20
+        width: 86
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1642e36ecdda62e30800000000000000
+      internalID: 4478458043733779553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 20
+        width: 86
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 197dce2dd3878a600800000000000000
+      internalID: 479765567242033041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f9218198e6047e60800000000000000
+      internalID: 7958994037413849589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a101f96e1c4da40800000000000000
+      internalID: 5392147850124597829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 021f6ff108098cb20800000000000000
+      internalID: 3154930418939523360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b8e9723f9f3fbd30800000000000000
+      internalID: 4449344909844539569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5500c4ce7da85430800000000000000
+      internalID: 3771955447901193563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: protagonist-sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1810
+        y: 20
+        width: 85
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7df01072cc54b2e0800000000000000
+      internalID: -2110960335156347521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 43a56e1006d194241a03a5b7dacdbaaa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      protagonist-sheet_0: -1225974526469417938
+      protagonist-sheet_1: 8475615435951142973
+      protagonist-sheet_10: 5392147850124597829
+      protagonist-sheet_11: 3154930418939523360
+      protagonist-sheet_12: 4449344909844539569
+      protagonist-sheet_13: 3771955447901193563
+      protagonist-sheet_14: -2110960335156347521
+      protagonist-sheet_2: -4085235182094693177
+      protagonist-sheet_3: -5616552385104366498
+      protagonist-sheet_4: -8656507360967386379
+      protagonist-sheet_5: 1023796094522616851
+      protagonist-sheet_6: -410833423324104383
+      protagonist-sheet_7: 4478458043733779553
+      protagonist-sheet_8: 479765567242033041
+      protagonist-sheet_9: 7958994037413849589
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
