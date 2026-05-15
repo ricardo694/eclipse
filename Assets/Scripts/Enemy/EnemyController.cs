@@ -1,156 +1,144 @@
+
+using UnityEditor.Animations;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // patrulla
-    public float speedWalk = 2.5f;
-    public float cronometro = 4f;
-    public int rutina;
-    public int direccion;
-
-    // detección
-    public float rangoVision;
-    public float rangoAtaque;
-
-    // estado
-    public bool atacando;
-    private bool enInmunidad;
-    public float tiempoInmunidad = 1f;
-    private float timerInmunidad;
-
-    // referencias
-    public GameObject target;
-    public GameObject Hit;
-    private Animator animator;
+    public Transform player ;
+    public float detectionRadius = 0.5f;
+    public float speed = 2.0f;
     private Rigidbody2D rb;
+    private Vector2 movement;
+    private bool enMovimiento;
+    private bool recibiendoDano;
+    public float fuerzaRebote = 0.2f;
+    private bool playerVivo ;
+    private bool muerto;
+    public int vida = 3;
+    private Animator animator;
 
     void Start()
     {
+        playerVivo= true;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        target = GameObject.Find("Player");
     }
 
     void Update()
     {
-        if (enInmunidad)
+        if(playerVivo && !muerto)
         {
-            timerInmunidad -= Time.deltaTime;
-            if (timerInmunidad <= 0f)
-                enInmunidad = false;
+            Movimiento();
         }
 
-        Comportamiento();
+        Animaciones();
     }
 
-    void Mover(float direccionX)
+    private void Movimiento()
     {
-        rb.linearVelocity = new Vector2(direccionX * speedWalk, rb.linearVelocity.y);
-    }
+        float distanceTolayer = Vector2.Distance(transform.position, player.position);
 
-    void Comportamiento()
-    {
-        float distancia = Mathf.Abs(transform.position.x - target.transform.position.x);
-
-        if (distancia > rangoVision)
+        if (distanceTolayer < detectionRadius)
         {
-            // --- fuera de visión: patrulla ---
-            animator.SetBool("run", false);
-            animator.SetBool("attack", false);
-
-            cronometro += Time.deltaTime;
-            if (cronometro >= 4f)
+            Vector2 direction = (player.position - transform.position).normalized;
+            
+            if (direction.x < 0 )
             {
-                rutina = Random.Range(0, 2);
-                cronometro = 0f;
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            if (direction.x > 0 )
+            {
+                transform.localScale = new Vector3(1, 1, 1);
             }
 
-            switch (rutina)
-            {
-                case 0:
-                    animator.SetBool("walk", false);
-                    rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-                    break;
-                case 1:
-                    direccion = Random.Range(0, 2);
-                    rutina++;
-                    break;
-                case 2:
-                    transform.rotation = Quaternion.Euler(0, direccion == 0 ? 180 : 0, 0);
-                    Mover(direccion == 0 ? -1f : 1f);
-                    animator.SetBool("walk", true);
-                    break;
-            }
-        }
-        else if (distancia > rangoAtaque)
-        {
-            // --- dentro de visión, fuera de ataque: caminar hacia el jugador ---
-            if (!atacando)
-            {
-                animator.SetBool("attack", false);
-                animator.SetBool("run", false);
-                animator.SetBool("walk", true);
+            movement = new Vector2(direction.x, 0);
 
-                if (transform.position.x < target.transform.position.x)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                    Mover(1f);
-                }
-                else
-                {
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
-                    Mover(-1f);
-                }
-            }
+            enMovimiento = true;
         }
         else
         {
-            // --- dentro de rango de ataque ---
-            if (!atacando)
-            {
-                if (transform.position.x < target.transform.position.x)
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                else
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
+            movement = Vector2.zero;
+            enMovimiento = false;
+        }
+        if(!recibiendoDano)
+            rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
 
-                animator.SetBool("walk", false);
-                animator.SetBool("run", false);
-                EmpezarAtaque();
+    }
+
+    public void Animaciones()
+    {
+        animator.SetBool("enMovimiento",enMovimiento);
+        animator.SetBool("recibeDano",recibiendoDano);
+        animator.SetBool("muerto",muerto);
+    }
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Vector2 direccionDano = new Vector2(transform.position.x, 0);
+            PlayerController playerScript =  collision.gameObject.GetComponent<PlayerController>();
+
+            playerScript.RecibeDano(direccionDano, 1);
+            playerVivo=!playerScript.muerto;
+            if(!playerVivo)
+            {
+                enMovimiento = false;
             }
         }
     }
 
-    public void EmpezarAtaque()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        atacando = true;
-        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        animator.SetBool("attack", true);
+        if (collision.CompareTag("Puño"))
+        {
+            Vector2 direccionDano = new Vector2( collision.gameObject.transform.position.x, 0);
+
+            RecibeDano(direccionDano, 1);
+
+        }
     }
 
-    public void FinAtaque()
+    public void RecibeDano(Vector2 direccion, int cantDano)
     {
-        atacando = false;
-        animator.SetBool("attack", false);
+        if(!recibiendoDano)
+        {
+            vida-=cantDano;
+            recibiendoDano = true;
+            if (vida <=0)
+            {
+                muerto=true;
+                enMovimiento = false;
+            }
+            else
+            {
+             //Rebote
+            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
+            rb.AddForce(rebote*fuerzaRebote, ForceMode2D.Impulse);    
+            }
+ 
+        }
+    }
+    public void DesactivarDano()
+    {
+        recibiendoDano = false;
+        rb.linearVelocity = Vector2.zero;
     }
 
-    public void ColliderWeaponTrue()
+    //funcion para que el enemigo desaparezca despues de morir
+    public void EliminarCuerpo()
     {
-        Hit.GetComponent<BoxCollider2D>().enabled = true;
+        Destroy(gameObject);
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere ( transform.position, detectionRadius);
     }
 
-    public void ColliderWeaponFalse()
-    {
-        Hit.GetComponent<BoxCollider2D>().enabled = false;
-    }
 
-    public bool PuedeGolpear()
-    {
-        return !enInmunidad;
-    }
-
-    public void ActivarInmunidad()
-    {
-        enInmunidad = true;
-        timerInmunidad = tiempoInmunidad;
-    }
 }

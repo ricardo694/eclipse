@@ -1,94 +1,79 @@
 fileFormatVersion: 2
-guid: 41f54fd7a8907a549bf9eeed29309e84
+guid: 92553029e7576764daca8b4f52f386ce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -838843260714224590
-    second: WalkEnemy_0
+      213: -146941064657480129
+    second: Death-sprite_0
   - first:
-      213: 6141461832666465966
-    second: WalkEnemy_1
+      213: 9011004108091434041
+    second: Death-sprite_1
   - first:
-      213: -2446255840254078293
-    second: WalkEnemy_2
+      213: -8891797671406671619
+    second: Death-sprite_2
   - first:
-      213: 7717226576554974427
-    second: WalkEnemy_3
+      213: -45232812068605183
+    second: Death-sprite_3
   - first:
-      213: -7250108397492120845
-    second: WalkEnemy_4
+      213: -3788983328559848597
+    second: Death-sprite_4
   - first:
-      213: -3844754692528061910
-    second: WalkEnemy_5
+      213: -3128415128623753061
+    second: Death-sprite_5
   - first:
-      213: -4690602851705838266
-    second: WalkEnemy_6
+      213: -7649636141811405908
+    second: Death-sprite_6
   - first:
-      213: 2434535355970159852
-    second: WalkEnemy_7
+      213: -3824863115457192806
+    second: Death-sprite_7
   - first:
-      213: 4272832732695073771
-    second: WalkEnemy_8
+      213: 8908531374259755134
+    second: Death-sprite_8
   - first:
-      213: -3942921518443690873
-    second: WalkEnemy_9
+      213: 8776117084358106409
+    second: Death-sprite_9
   - first:
-      213: 8186901040824625739
-    second: WalkEnemy_10
+      213: -9082397765395350635
+    second: Death-sprite_10
   - first:
-      213: -6344461926140629926
-    second: WalkEnemy_11
+      213: -7139182904319038882
+    second: Death-sprite_11
   - first:
-      213: 4653149951497646345
-    second: WalkEnemy_12
+      213: 3933011066868212198
+    second: Death-sprite_12
   - first:
-      213: 6536852718063482243
-    second: WalkEnemy_13
+      213: 1917659447228292890
+    second: Death-sprite_13
   - first:
-      213: 3548988695103869762
-    second: WalkEnemy_14
+      213: 4738950626866423920
+    second: Death-sprite_14
   - first:
-      213: 522049048471265973
-    second: WalkEnemy_15
+      213: -3841865297262649971
+    second: Death-sprite_15
   - first:
-      213: 6789349558734767015
-    second: WalkEnemy_16
+      213: -723250585551528206
+    second: Death-sprite_16
   - first:
-      213: 6037093404067912639
-    second: WalkEnemy_17
+      213: 2754516740634412577
+    second: Death-sprite_17
   - first:
-      213: 3787889778979829253
-    second: WalkEnemy_18
+      213: 8721605218203191018
+    second: Death-sprite_18
   - first:
-      213: 6576600874449138207
-    second: WalkEnemy_19
+      213: -1038192094322825103
+    second: Death-sprite_19
   - first:
-      213: 5477357557223403273
-    second: WalkEnemy_20
+      213: 5933294379618261214
+    second: Death-sprite_20
   - first:
-      213: -673690076288119743
-    second: WalkEnemy_21
+      213: 8337277188179128626
+    second: Death-sprite_21
   - first:
-      213: 2103270668616998519
-    second: WalkEnemy_22
+      213: -4723241975154056177
+    second: Death-sprite_22
   - first:
-      213: 3090326617744776575
-    second: WalkEnemy_23
-  - first:
-      213: 1153447946674287260
-    second: WalkEnemy_24
-  - first:
-      213: -4729263355144359128
-    second: WalkEnemy_25
-  - first:
-      213: 5738281059106258441
-    second: WalkEnemy_26
-  - first:
-      213: 2864777939655073169
-    second: WalkEnemy_27
-  - first:
-      213: 6547814208220051414
-    second: WalkEnemy_28
+      213: 8811390560878368877
+    second: Death-sprite_23
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,7 +120,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 55
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -180,30 +165,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkEnemy_0
+      name: Death-sprite_0
       rect:
         serializedVersion: 2
-        x: 107
-        y: 1158
-        width: 53
-        height: 84
+        x: 45
+        y: 1290
+        width: 151
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 234f5eeaf74db54f0800000000000000
-      internalID: -838843260714224590
+      spriteID: f365c2651e5f5fdf0800000000000000
+      internalID: -146941064657480129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_1
+      name: Death-sprite_1
       rect:
         serializedVersion: 2
-        x: 381
-        y: 1158
-        width: 55
-        height: 84
+        x: 471
+        y: 1294
+        width: 143
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ea644b97ffada3550800000000000000
-      internalID: 6141461832666465966
+      spriteID: 93420647e748d0d70800000000000000
+      internalID: 9011004108091434041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_2
+      name: Death-sprite_2
       rect:
         serializedVersion: 2
-        x: 656
-        y: 1158
-        width: 53
-        height: 84
+        x: 48
+        y: 945
+        width: 146
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,20 +228,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba25eeb26472d0ed0800000000000000
-      internalID: -2446255840254078293
+      spriteID: df8e82de02df99480800000000000000
+      internalID: -8891797671406671619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_3
+      name: Death-sprite_3
       rect:
         serializedVersion: 2
-        x: 931
-        y: 1158
-        width: 53
-        height: 84
+        x: 454
+        y: 942
+        width: 176
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdc53ca0fa8191b60800000000000000
-      internalID: 7717226576554974427
+      spriteID: 10375704ffc4f5ff0800000000000000
+      internalID: -45232812068605183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_4
+      name: Death-sprite_4
       rect:
         serializedVersion: 2
-        x: 109
-        y: 998
-        width: 50
-        height: 85
+        x: 567
+        y: 1211
+        width: 8
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +272,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f2d76043d0726b90800000000000000
-      internalID: -7250108397492120845
+      spriteID: b632051dcb3da6bc0800000000000000
+      internalID: -3788983328559848597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_5
+      name: Death-sprite_5
       rect:
         serializedVersion: 2
-        x: 385
-        y: 998
-        width: 47
-        height: 86
+        x: 611
+        y: 1204
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -322,20 +294,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a22495f3affa4aac0800000000000000
-      internalID: -3844754692528061910
+      spriteID: b985c6cf303a594d0800000000000000
+      internalID: -3128415128623753061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_6
+      name: Death-sprite_6
       rect:
         serializedVersion: 2
-        x: 659
-        y: 998
-        width: 46
-        height: 86
+        x: 25
+        y: 607
+        width: 201
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,20 +316,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 645a3a9ee81a7eeb0800000000000000
-      internalID: -4690602851705838266
+      spriteID: cab6752657807d590800000000000000
+      internalID: -7649636141811405908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_7
+      name: Death-sprite_7
       rect:
         serializedVersion: 2
-        x: 934
-        y: 999
-        width: 47
-        height: 86
+        x: 153
+        y: 856
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -366,20 +338,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce40bbde10539c120800000000000000
-      internalID: 2434535355970159852
+      spriteID: a9c1ea0f24b5beac0800000000000000
+      internalID: -3824863115457192806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_8
+      name: Death-sprite_8
       rect:
         serializedVersion: 2
-        x: 111
-        y: 839
-        width: 49
-        height: 86
+        x: 434
+        y: 614
+        width: 209
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -388,20 +360,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be393f06bb62c4b30800000000000000
-      internalID: 4272832732695073771
+      spriteID: e78dc21e51671ab70800000000000000
+      internalID: 8908531374259755134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_9
+      name: Death-sprite_9
       rect:
         serializedVersion: 2
-        x: 385
-        y: 839
-        width: 51
-        height: 85
+        x: 488
+        y: 836
+        width: 9
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -410,20 +382,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7848bebf4cde749c0800000000000000
-      internalID: -3942921518443690873
+      spriteID: 92dd6688df70bc970800000000000000
+      internalID: 8776117084358106409
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_10
+      name: Death-sprite_10
       rect:
         serializedVersion: 2
-        x: 658
-        y: 838
-        width: 55
-        height: 86
+        x: 497
+        y: 834
+        width: 9
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -432,20 +404,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4aa0adde17bd9170800000000000000
-      internalID: 8186901040824625739
+      spriteID: 59bfecc5a57d4f180800000000000000
+      internalID: -9082397765395350635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_11
+      name: Death-sprite_11
       rect:
         serializedVersion: 2
-        x: 932
-        y: 838
-        width: 57
-        height: 85
+        x: 647
+        y: 648
+        width: 14
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,20 +426,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5ca5691e71f3f7a0800000000000000
-      internalID: -6344461926140629926
+      spriteID: e5aa58939f68cec90800000000000000
+      internalID: -7139182904319038882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_12
+      name: Death-sprite_12
       rect:
         serializedVersion: 2
-        x: 110
-        y: 678
-        width: 58
-        height: 84
+        x: 46
+        y: 300
+        width: 216
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -476,20 +448,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 901b4a93a3f439040800000000000000
-      internalID: 4653149951497646345
+      spriteID: 6e12c523abcd49630800000000000000
+      internalID: 3933011066868212198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_13
+      name: Death-sprite_13
       rect:
         serializedVersion: 2
-        x: 384
-        y: 677
-        width: 58
-        height: 85
+        x: 410
+        y: 302
+        width: 206
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,20 +470,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3857831d9e097ba50800000000000000
-      internalID: 6536852718063482243
+      spriteID: a1fd6386b15ec9a10800000000000000
+      internalID: 1917659447228292890
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_14
+      name: Death-sprite_14
       rect:
         serializedVersion: 2
-        x: 659
-        y: 676
-        width: 57
-        height: 86
+        x: 473
+        y: 384
+        width: 6
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -520,20 +492,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2431b833a6a804130800000000000000
-      internalID: 3548988695103869762
+      spriteID: 078ec72bc7224c140800000000000000
+      internalID: 4738950626866423920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_15
+      name: Death-sprite_15
       rect:
         serializedVersion: 2
-        x: 933
-        y: 676
-        width: 57
-        height: 87
+        x: 484
+        y: 384
+        width: 9
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -542,20 +514,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b2e579f7d0be3700800000000000000
-      internalID: 522049048471265973
+      spriteID: d8d52c10ed3feaac0800000000000000
+      internalID: -3841865297262649971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_16
+      name: Death-sprite_16
       rect:
         serializedVersion: 2
-        x: 111
-        y: 517
-        width: 55
-        height: 86
+        x: 498
+        y: 385
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -564,20 +536,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a34750c37d983e50800000000000000
-      internalID: 6789349558734767015
+      spriteID: 2fe9b94ac6f76f5f0800000000000000
+      internalID: -723250585551528206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_17
+      name: Death-sprite_17
       rect:
         serializedVersion: 2
-        x: 386
-        y: 518
-        width: 51
-        height: 86
+        x: 515
+        y: 382
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -586,20 +558,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fbb5251177018c350800000000000000
-      internalID: 6037093404067912639
+      spriteID: 126816da1620a3620800000000000000
+      internalID: 2754516740634412577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_18
+      name: Death-sprite_18
       rect:
         serializedVersion: 2
-        x: 662
-        y: 518
-        width: 47
-        height: 87
+        x: 142
+        y: 300
+        width: 15
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -608,20 +580,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 506fc645fa9419430800000000000000
-      internalID: 3787889778979829253
+      spriteID: ae6c136acbd590970800000000000000
+      internalID: 8721605218203191018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_19
+      name: Death-sprite_19
       rect:
         serializedVersion: 2
-        x: 937
-        y: 518
-        width: 42
-        height: 87
+        x: 56
+        y: 16
+        width: 230
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -630,20 +602,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f127017a6a7c44b50800000000000000
-      internalID: 6576600874449138207
+      spriteID: 178e4417ac99791f0800000000000000
+      internalID: -1038192094322825103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_20
+      name: Death-sprite_20
       rect:
         serializedVersion: 2
-        x: 116
-        y: 358
-        width: 44
-        height: 87
+        x: 420
+        y: 32
+        width: 227
+        height: 271
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -652,20 +624,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 90f2a129dab730c40800000000000000
-      internalID: 5477357557223403273
+      spriteID: ed8d7f46dcb475250800000000000000
+      internalID: 5933294379618261214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_21
+      name: Death-sprite_21
       rect:
         serializedVersion: 2
-        x: 389
-        y: 359
-        width: 51
-        height: 85
+        x: 61
+        y: 15
+        width: 18
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -674,20 +646,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 14c042ae17296a6f0800000000000000
-      internalID: -673690076288119743
+      spriteID: 231726b0e65f3b370800000000000000
+      internalID: 8337277188179128626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_22
+      name: Death-sprite_22
       rect:
         serializedVersion: 2
-        x: 662
-        y: 358
-        width: 54
-        height: 86
+        x: 102
+        y: 4
+        width: 28
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -696,20 +668,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 77e1a6d8781503d10800000000000000
-      internalID: 2103270668616998519
+      spriteID: f046abac27ca37eb0800000000000000
+      internalID: -4723241975154056177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkEnemy_23
+      name: Death-sprite_23
       rect:
         serializedVersion: 2
-        x: 934
-        y: 358
-        width: 56
-        height: 85
+        x: 136
+        y: 10
+        width: 16
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -718,118 +690,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7d9c928fab03ea20800000000000000
-      internalID: 3090326617744776575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkEnemy_24
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 199
-        width: 57
-        height: 83
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c92bc68dbced10010800000000000000
-      internalID: 1153447946674287260
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkEnemy_25
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 199
-        width: 55
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 823395309084e5eb0800000000000000
-      internalID: -4729263355144359128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkEnemy_26
-      rect:
-        serializedVersion: 2
-        x: 659
-        y: 200
-        width: 51
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 90e7165783872af40800000000000000
-      internalID: 5738281059106258441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkEnemy_27
-      rect:
-        serializedVersion: 2
-        x: 935
-        y: 200
-        width: 47
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 19d148d9b5cb1c720800000000000000
-      internalID: 2864777939655073169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkEnemy_28
-      rect:
-        serializedVersion: 2
-        x: 110
-        y: 43
-        width: 53
-        height: 84
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d73630a4528eda50800000000000000
-      internalID: 6547814208220051414
+      spriteID: d689266c709584a70800000000000000
+      internalID: 8811390560878368877
       vertices: []
       indices: 
       edges: []
@@ -838,7 +700,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9179b3b38635f654aaccae34a44505bc
+    spriteID: b3846e490a388b846b5f3089536ace4e
     internalID: 0
     vertices: []
     indices: 
@@ -848,35 +710,30 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WalkEnemy_0: -838843260714224590
-      WalkEnemy_1: 6141461832666465966
-      WalkEnemy_10: 8186901040824625739
-      WalkEnemy_11: -6344461926140629926
-      WalkEnemy_12: 4653149951497646345
-      WalkEnemy_13: 6536852718063482243
-      WalkEnemy_14: 3548988695103869762
-      WalkEnemy_15: 522049048471265973
-      WalkEnemy_16: 6789349558734767015
-      WalkEnemy_17: 6037093404067912639
-      WalkEnemy_18: 3787889778979829253
-      WalkEnemy_19: 6576600874449138207
-      WalkEnemy_2: -2446255840254078293
-      WalkEnemy_20: 5477357557223403273
-      WalkEnemy_21: -673690076288119743
-      WalkEnemy_22: 2103270668616998519
-      WalkEnemy_23: 3090326617744776575
-      WalkEnemy_24: 1153447946674287260
-      WalkEnemy_25: -4729263355144359128
-      WalkEnemy_26: 5738281059106258441
-      WalkEnemy_27: 2864777939655073169
-      WalkEnemy_28: 6547814208220051414
-      WalkEnemy_3: 7717226576554974427
-      WalkEnemy_4: -7250108397492120845
-      WalkEnemy_5: -3844754692528061910
-      WalkEnemy_6: -4690602851705838266
-      WalkEnemy_7: 2434535355970159852
-      WalkEnemy_8: 4272832732695073771
-      WalkEnemy_9: -3942921518443690873
+      Death-sprite_0: -146941064657480129
+      Death-sprite_1: 9011004108091434041
+      Death-sprite_10: -9082397765395350635
+      Death-sprite_11: -7139182904319038882
+      Death-sprite_12: 3933011066868212198
+      Death-sprite_13: 1917659447228292890
+      Death-sprite_14: 4738950626866423920
+      Death-sprite_15: -3841865297262649971
+      Death-sprite_16: -723250585551528206
+      Death-sprite_17: 2754516740634412577
+      Death-sprite_18: 8721605218203191018
+      Death-sprite_19: -1038192094322825103
+      Death-sprite_2: -8891797671406671619
+      Death-sprite_20: 5933294379618261214
+      Death-sprite_21: 8337277188179128626
+      Death-sprite_22: -4723241975154056177
+      Death-sprite_23: 8811390560878368877
+      Death-sprite_3: -45232812068605183
+      Death-sprite_4: -3788983328559848597
+      Death-sprite_5: -3128415128623753061
+      Death-sprite_6: -7649636141811405908
+      Death-sprite_7: -3824863115457192806
+      Death-sprite_8: 8908531374259755134
+      Death-sprite_9: 8776117084358106409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

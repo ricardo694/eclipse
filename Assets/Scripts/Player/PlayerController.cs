@@ -1,4 +1,5 @@
 
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,9 +22,17 @@ public class PlayerController : MonoBehaviour
     public Vector2 colliderSizeSalto;
     public Vector2 colliderOffsetSalto;
 
+    //vida 
+
+    public int vida =3;
+    public bool muerto;
+    //inmunidad
+    public float duracionInmunidad = 2f;
+    private int layerEnemigo;
+    public float duracionAnimDano= 0.2f;
     //daño
     private bool recibiendoDano;
-    public float fuerzaRebote = 10f;
+    public float fuerzaRebote = 0.2f;
 
     //ataque
     private bool atacando;
@@ -59,6 +68,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f); // ← fuerza Z=0
 
         colliderSizeNormal   = col.size;
@@ -68,7 +78,8 @@ public class PlayerController : MonoBehaviour
 
         colliderSizeSalto   = new Vector2(col.size.x, col.size.y * 0.8f);   
         colliderOffsetSalto = new Vector2(col.offset.x, col.offset.y + col.size.y * 0.1f);
-    
+
+        layerEnemigo= LayerMask.NameToLayer("Enemy");
     }
     //===================================================================== Callbacks del nuevo Input System =====================================================================
  
@@ -119,7 +130,7 @@ public void CrouchCanceled(InputAction.CallbackContext context)
                 dashDisponible = true;
         }
 
-        /*-------Detección del suelo----------*/
+        //Detección del suelo
         Vector2 origenRaycast = new Vector2(
             transform.position.x + col.offset.x,
             transform.position.y + col.offset.y - col.size.y * 0.5f
@@ -143,26 +154,30 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         }
     }
 
-
-        // --- Input dash (K) ---
-        if (dashPulsado && dashDisponible && !dasheando && !atacando && !recibiendoDano)
+        if (!muerto)
         {
-            IniciarDash();
+             // --- Input dash (K) ---
+            if (dashPulsado && dashDisponible && !dasheando && !atacando && !recibiendoDano && !agachado)
+            {
+                IniciarDash();
+            }
+
+            // --- Input ataque (J) ---
+            if (ataquePulsado && !atacando && !dasheando && enSuelo)
+            {
+                Atacando();
+            }
+
+            ManejarAgacharse();
+
+            // Limpiar flags de un solo frame
+            saltoPulsado  = false;
+            dashPulsado   = false;
+            ataquePulsado = false;
         }
-
-        // --- Input ataque (J) ---
-        if (ataquePulsado && !atacando && !dasheando && enSuelo)
-        {
-            Atacando();
-        }
-
-        // Limpiar flags de un solo frame
-        saltoPulsado  = false;
-        dashPulsado   = false;
-        ataquePulsado = false;
-
+       
         Animaciones();
-        ManejarAgacharse();
+   
 
         
     }
@@ -187,20 +202,28 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         rb.gravityScale = 1f;
         rb.linearVelocity = Vector2.zero;
     }
+
     public void RecibeDano(Vector2 direccion, int cantDano)
     {
         if(!recibiendoDano)
         {
-            if (dasheando) TerminarDash();
-
             recibiendoDano = true;
-            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 1).normalized;
-            rb.AddForce(rebote*fuerzaRebote, ForceMode2D.Impulse);  
-            Invoke(nameof(DesactivarDano), 0.3f);
+            vida-=cantDano;
+            if (vida<=0)
+            {
+                muerto=true;
+            }
+            else
+            {
+                //Rebote
+                Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
+                rb.AddForce(rebote*fuerzaRebote, ForceMode2D.Impulse);  
+            }
+    
         }
     }
 
-void ManejarAgacharse()
+    void ManejarAgacharse()
 {
     bool quiereAgacharse = agacharPulsado && enSuelo;
 
@@ -236,7 +259,7 @@ void ManejarAgacharse()
             col.offset = colliderOffsetNormal;
         }
     }
-    Debug.Log("Agachar pulsado: " + agacharPulsado);
+
 }
     public void Movimiento()
     {
@@ -262,9 +285,10 @@ void ManejarAgacharse()
     {
         animator.SetBool("ensuelo",enSuelo);
         animator.SetBool("atacando",atacando); 
-        // animator.SetBool("RecibeDano",recibiendoDano);
+        animator.SetBool("recibiendoDano",recibiendoDano);
         animator.SetBool("dasheando", dasheando);
         animator.SetBool("agachado", agachado);
+        animator.SetBool("muerto",muerto);
     }
 
     void FixedUpdate()
@@ -278,7 +302,10 @@ void ManejarAgacharse()
     {
         recibiendoDano = false;
         rb.linearVelocity = Vector2.zero;
+
     }
+
+
     public void Atacando()
     {
         atacando=true;
@@ -291,14 +318,9 @@ void ManejarAgacharse()
 
     void OnDrawGizmos()
     {
-        if (col == null) return;
 
-        Vector2 origen = new Vector2(
-        transform.position.x + col.offset.x,
-            transform.position.y + col.offset.y - col.size.y * 0.5f
-        );
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(origen, origen + Vector2.down * longitudRaycast);        
+        Gizmos.DrawLine(transform.position,transform.position + Vector3.down * longitudRaycast);        
     }
     
 }

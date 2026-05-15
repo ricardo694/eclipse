@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: idelEnemy
+  m_Name: damageEnemy
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -2974275437290968093, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
-    - time: 0.38333333
-      value: {fileID: 8218602300068624117, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
+      value: {fileID: -2414322557375745557, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
+    - time: 0.43333334
+      value: {fileID: 7986599914361343955, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
     - time: 0.85
-      value: {fileID: 3618423334592533662, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
+      value: {fileID: -1858096626277150687, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,9 +48,9 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -2974275437290968093, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
-    - {fileID: 8218602300068624117, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
-    - {fileID: 3618423334592533662, guid: d242e97d28486e64d9902fafe0e30b76, type: 3}
+    - {fileID: -2414322557375745557, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
+    - {fileID: 7986599914361343955, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
+    - {fileID: -1858096626277150687, guid: 21925819d6f99c04f94b3e84f02ce33f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -75,4 +75,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.8666667
+    functionName: DesactivarDano
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
