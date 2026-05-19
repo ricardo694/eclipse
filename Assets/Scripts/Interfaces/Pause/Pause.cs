@@ -34,7 +34,7 @@ public class Pausa : MonoBehaviour
     {
         pauseAction.performed -= OnPausePerformed;
 
-        // Solo deshabilitar si fue creada manualmente
+        
         if (playerInput == null)
         {
             pauseAction.Disable();

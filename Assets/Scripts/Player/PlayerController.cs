@@ -38,7 +38,9 @@ public class PlayerController : MonoBehaviour
     [Header("Daño")]
     public float fuerzaRebote = 0.2f;
     public float duracionInmunidad = 1f; 
+    public float duracionAnimDano = 0.5f;
     private bool recibiendoDano;
+    private SpriteRenderer spriteRenderer;
 
 
     [Header("Ataque")]
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f); // ← fuerza Z=0
 
         colliderSizeNormal   = col.size;
@@ -280,10 +282,37 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         animator.ResetTrigger("1");
         animator.Play("idle1"); 
 
-        yield return new WaitForSeconds(duracionInmunidad);
+        //inmunidad 
+        int layerPlayer = gameObject.layer;
+        int layerEnemy = LayerMask.NameToLayer("Enemy");
+        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemy, true);
+
+        // Parpadeo del sprite
+        StartCoroutine(Parpadeo());
+
+        yield return new WaitForSeconds(duracionAnimDano);
 
         recibiendoDano = false;
         rb.linearVelocity = Vector2.zero;
+
+        yield return new WaitForSeconds(duracionInmunidad - duracionAnimDano);
+
+        //restaurar colisiones
+        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemy, false);
+  
+    }
+
+    private IEnumerator Parpadeo()
+    {
+        float intervalo = 0.1f;
+        
+        while (recibiendoDano)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(intervalo);
+        }
+
+        spriteRenderer.enabled = true;
     }
 
 

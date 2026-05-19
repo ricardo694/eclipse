@@ -123124,7 +123124,7 @@ BoxCollider2D:
   m_Offset: {x: -0.011917949, y: 0.0055098534}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.450544, y: 0.4975272}
+    pivot: {x: 0.4925816, y: 0.4975272}
     oldSize: {x: 1.5058824, y: 1.5058824}
     newSize: {x: 1.5058824, y: 1.5058824}
     adaptiveTilingThreshold: 0.5
@@ -123317,7 +123317,7 @@ MonoBehaviour:
   vida: 3
   muerto: 0
   fuerzaRebote: 4
-  duracionInmunidad: 0.6
+  duracionInmunidad: 1
   fuerzaDash: 20
   duracionDash: 0.15
   cooldownDash: 1
