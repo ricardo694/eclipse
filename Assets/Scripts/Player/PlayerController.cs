@@ -2,42 +2,52 @@
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine.Rendering;
 
 
 public class PlayerController : MonoBehaviour
 {
-    //movimiento
+    [Header("Movimiento")]
     public float velocidad = 5f;
+    public bool step1 = false;
+    public float timeByStep = 0.5f;
+    float cont = 0f;
 
-    //salto
+    [Header("Salto")]
     public float fuerzaSalto = 10f;
-    public float longitudRaycast = 0.1f;
-    public LayerMask capaSuelo;
-    public Animator animator;
-    private Rigidbody2D rb;
+    public int maxSaltos = 2;
+    private int saltosRestantes = 0;
     private bool enSuelo;
-    private int saltosRestantes = 0; 
-    public int maxSaltos = 2;        
+    private Vector2 colliderSizeSalto;
+    private Vector2 colliderOffsetSalto;
 
-    public Vector2 colliderSizeSalto;
-    public Vector2 colliderOffsetSalto;
+    [Header("Detección de Suelo")]
+    public Vector2 tamañoDetector = new Vector2(0.8f, 0.05f);
+    public float offsetYDetector = 0.02f;
 
-    //vida 
+    [Header("Detección de Pared")]
+    public Vector2 tamañoDetectorPared = new Vector2(0.05f, 0.6f);
+    public float offsetXDetectorPared = 0.5f;
+    private bool tocandoPared;
 
-    public int vida =3;
+    [Header("Vida")]
+    public int vida = 3;
     public bool muerto;
-    //inmunidad
-    public float duracionInmunidad = 2f;
-    private int layerEnemigo;
-    public float duracionAnimDano= 0.2f;
-    //daño
-    private bool recibiendoDano;
-    public float fuerzaRebote = 0.2f;
 
-    //ataque
+    [Header("Daño")]
+    public float fuerzaRebote = 0.2f;
+    public float duracionInmunidad = 1f; 
+    private bool recibiendoDano;
+
+
+    [Header("Ataque")]
+    private int comboContador = 0;
+    private bool comboRegistrado = false;
     private bool atacando;
 
-    //dash
+
+    [Header("Dash")]
     public float fuerzaDash = 14f;
     public float duracionDash = 0.15f;
     public float cooldownDash = 1f;
@@ -47,18 +57,25 @@ public class PlayerController : MonoBehaviour
     private float timerCooldown;
     private float direccionDash;
 
-    // agacharse
-    private bool agachado;
-    public float velocidadAgachado = 2.5f;    
-    public Vector2 colliderSizeNormal;
-    public Vector2 colliderOffsetNormal;
-    public Vector2 colliderSizeAgachado;
-    public Vector2 colliderOffsetAgachado;
-    public CapsuleCollider2D col;              
+    [Header("Agacharse")]
+    public float velocidadAgachado = 2.5f;
     public float radioCheckArriba = 0.2f;
-    public LayerMask capaTecho;  
+    public LayerMask capaTecho;
+    private bool agachado;
+    private Vector2 colliderSizeNormal;
+    private Vector2 colliderOffsetNormal;
+    private Vector2 colliderSizeAgachado;
+    private Vector2 colliderOffsetAgachado;
 
-    // New Input System 
+
+    [Header("Componentes")]
+    public Animator animator;
+    public BoxCollider2D col;
+    public LayerMask capaSuelo;
+    private Rigidbody2D rb;
+    public PlayerSoundController soundController;
+
+    [Header("Input")]
     private Vector2 inputMovimiento;
     private bool saltoPulsado;
     private bool dashPulsado;
@@ -68,6 +85,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f); // ← fuerza Z=0
 
@@ -78,8 +96,6 @@ public class PlayerController : MonoBehaviour
 
         colliderSizeSalto   = new Vector2(col.size.x, col.size.y * 0.8f);   
         colliderOffsetSalto = new Vector2(col.offset.x, col.offset.y + col.size.y * 0.1f);
-
-        layerEnemigo= LayerMask.NameToLayer("Enemy");
     }
     //===================================================================== Callbacks del nuevo Input System =====================================================================
  
@@ -115,6 +131,7 @@ public void CrouchCanceled(InputAction.CallbackContext context)
     // =====================================================================
     void Update()
     {
+        if (Time.timeScale == 0) return;
         // --- Timers del dash ---
         if (dasheando)
         {
@@ -133,10 +150,23 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         //Detección del suelo
         Vector2 origenRaycast = new Vector2(
             transform.position.x + col.offset.x,
-            transform.position.y + col.offset.y - col.size.y * 0.5f
+            transform.position.y + col.offset.y - col.size.y * 0.5f - offsetYDetector
         );
-        RaycastHit2D hit = Physics2D.Raycast(origenRaycast, Vector2.down, longitudRaycast, capaSuelo);
-        enSuelo = hit.collider != null;
+        enSuelo = Physics2D.OverlapBox(origenRaycast, tamañoDetector, 0f, capaSuelo);
+
+        //Deteccion de pared
+        float dirección = transform.localScale.x; 
+        Vector2 puntoPared = new Vector2(
+            transform.position.x + col.offset.x + (dirección * offsetXDetectorPared),
+            transform.position.y + col.offset.y
+        );
+        tocandoPared = Physics2D.OverlapBox(puntoPared, tamañoDetectorPared, 0f, capaSuelo);
+
+        
+        if (tocandoPared && !enSuelo)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
 
         if (!atacando && !dasheando)
         {
@@ -148,6 +178,7 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 
         if (saltoPulsado && saltosRestantes > 0 && !recibiendoDano && !agachado)
         {
+            soundController.PlaySaltar();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
             rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             saltosRestantes--;
@@ -163,9 +194,17 @@ public void CrouchCanceled(InputAction.CallbackContext context)
             }
 
             // --- Input ataque (J) ---
-            if (ataquePulsado && !atacando && !dasheando && enSuelo)
+            if (ataquePulsado  && !dasheando && enSuelo)
             {
-                Atacando();
+                if (!atacando)
+                {
+                    comboContador = 0;
+                    Atacando();
+                }
+                else if (atacando && !comboRegistrado && comboContador < 1)
+                {
+                    comboRegistrado = true; 
+                }
             }
 
             ManejarAgacharse();
@@ -212,16 +251,41 @@ public void CrouchCanceled(InputAction.CallbackContext context)
             if (vida<=0)
             {
                 muerto=true;
+
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.GameOver();
+                }
             }
             else
             {
+                 StopAllCoroutines();
                 //Rebote
                 Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
                 rb.AddForce(rebote*fuerzaRebote, ForceMode2D.Impulse);  
+
+                StartCoroutine(RecuperarseDeDano());
             }
     
         }
     }
+
+    private IEnumerator RecuperarseDeDano()
+    {
+    
+        atacando = false;
+        comboContador = 0;
+        comboRegistrado = false;
+        animator.ResetTrigger("0");
+        animator.ResetTrigger("1");
+        animator.Play("idle1"); 
+
+        yield return new WaitForSeconds(duracionInmunidad);
+
+        recibiendoDano = false;
+        rb.linearVelocity = Vector2.zero;
+    }
+
 
     void ManejarAgacharse()
 {
@@ -263,13 +327,48 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 }
     public void Movimiento()
     {
+
+        if (muerto) return;
+
         float velActual = agachado ? velocidadAgachado : velocidad;
         float inputX = inputMovimiento.x;
 
-        animator.SetFloat("movement", Mathf.Abs(inputX));
+        
+        if (inputX != 0 && enSuelo && !recibiendoDano && !agachado &&!atacando && !dasheando )
+        {
+            cont += Time.deltaTime;
+            if (cont >= timeByStep)
+            {
+                cont = 0f;
+                if (!step1)
+                {
+                    soundController.PlayMov1();
+                    step1 = true;
+                }
+                else
+                {
+                    soundController.PlayMov2();
+                    step1 = false;
+                }
+            }
+        }
 
-        if (inputX < 0) transform.localScale = new Vector3(-1, 1, 1);
-        if (inputX > 0) transform.localScale = new Vector3(1, 1, 1);
+        animator.SetFloat("movement", Mathf.Abs(inputX));
+        
+        if (!muerto)
+        {
+            if (inputX < 0) transform.localScale = new Vector3(-1, 1, 1);
+            if (inputX > 0) transform.localScale = new Vector3(1, 1, 1);
+        }
+
+
+           
+        if (tocandoPared && !enSuelo)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return; 
+        }
+
 
         if (!recibiendoDano && !agachado)
         {
@@ -300,7 +399,6 @@ public void CrouchCanceled(InputAction.CallbackContext context)
     }
     public void DesactivarDano()
     {
-        recibiendoDano = false;
         rb.linearVelocity = Vector2.zero;
 
     }
@@ -308,19 +406,58 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 
     public void Atacando()
     {
+        soundController.PlayAtacar();
         atacando=true;
+        comboRegistrado=false;
+        animator.SetTrigger(comboContador.ToString());
+    }
+
+    public void IniciarCombo()
+    {
+        if (comboRegistrado && comboContador < 1)
+        {
+            comboContador++;
+            float dir = transform.localScale.x;
+            rb.AddForce(new Vector2(dir * 6f, 0f), ForceMode2D.Impulse); 
+            Atacando();
+        }
+        else
+        {
+            
+            DesactivaAtaque();
+        }
     }
 
     public void DesactivaAtaque()
     {
+
         atacando=false;
+        comboContador = 0;
+        comboRegistrado = false;
     }
 
     void OnDrawGizmos()
     {
+         //  Detector suelo
+        if (col == null) return;
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position,transform.position + Vector3.down * longitudRaycast);        
+        Vector2 puntoDetector = new Vector2(
+            transform.position.x + col.offset.x,
+            transform.position.y + col.offset.y - col.size.y * 0.5f - offsetYDetector
+        );
+
+        Gizmos.color = enSuelo ? Color.green : Color.red;
+        Gizmos.DrawWireCube(puntoDetector, tamañoDetector);
+
+
+        //  Detector pared
+        float dirección = transform.localScale.x;
+        Vector2 puntoPared = new Vector2(
+            transform.position.x + col.offset.x + (dirección * offsetXDetectorPared),
+            transform.position.y + col.offset.y
+        );
+        Gizmos.color = tocandoPared ? Color.blue : Color.cyan;
+        Gizmos.DrawWireCube(puntoPared, tamañoDetectorPared);
     }
     
 }

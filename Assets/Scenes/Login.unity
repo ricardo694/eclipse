@@ -4320,6 +4320,11 @@ GameObject:
   - component: {fileID: 1257658663}
   - component: {fileID: 1257658662}
   - component: {fileID: 1257658664}
+  - component: {fileID: 1257658668}
+  - component: {fileID: 1257658667}
+  - component: {fileID: 1257658666}
+  - component: {fileID: 1257658665}
+  - component: {fileID: 1257658669}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -4421,10 +4426,7 @@ MonoBehaviour:
   confirmPasswordInput: {fileID: 578651984}
   createAccountButton: {fileID: 233044880}
   signInWithGoogleButton: {fileID: 462242449}
-  backButton: {fileID: 1433094905}
-  registerSystem: {fileID: 0}
-  registerPanel: {fileID: 0}
-  loginPanel: {fileID: 0}
+  registerSystem: {fileID: 1257658663}
 --- !u!114 &1257658663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4451,6 +4453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ceccacaad91674e9fb12efe34847de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoginManager
+  loginSystem: {fileID: 1257658665}
+  registerSystem: {fileID: 1257658663}
   inputUsuario: {fileID: 833912552}
   inputPassword: {fileID: 660775257}
   inputNuevoUsuario: {fileID: 325151318}
@@ -4459,6 +4463,85 @@ MonoBehaviour:
   inputConfirmarPassword: {fileID: 578651984}
   panelAlerta: {fileID: 1520267051}
   txtMensajeAlerta: {fileID: 2038610577}
+--- !u!114 &1257658665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257658658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f792f3f6beb0b4dbc3edc16b1a2945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoginSystem
+  supabaseUrl: https://ihwughhiqdoiwkctbdcr.supabase.co
+  supabaseKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlod3VnaGhpcWRvaXdrY3RiZGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3ODY2MTUsImV4cCI6MjA4ODM2MjYxNX0.dtKkp9l2G1hG4cLKYADZr93c0ZHKbjbgLVfyibXYkCg
+  uiLogin: {fileID: 0}
+--- !u!114 &1257658666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257658658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ccd57e289cea746b5a401a24e6d40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILogin
+  usernameInput: {fileID: 833912552}
+  passwordInput: {fileID: 660775257}
+  signInButton: {fileID: 1513733899}
+  googleButton: {fileID: 462242449}
+  errorText: {fileID: 0}
+  loadingIndicator: {fileID: 0}
+  loginSystem: {fileID: 1257658665}
+--- !u!114 &1257658667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257658658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91b636af436f9e48aa7c97981725f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
+  usernameInput: {fileID: 325151318}
+  emailInput: {fileID: 1482642017}
+  passwordInput: {fileID: 864241607}
+  confirmPasswordInput: {fileID: 578651984}
+  createAccountButton: {fileID: 233044880}
+  signInWithGoogleButton: {fileID: 462242449}
+  registerSystem: {fileID: 1257658668}
+--- !u!114 &1257658668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257658658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53171f19be489614f90babc141ec611e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RegisterSystem
+  supabaseUrl: https://ihwughhiqdoiwkctbdcr.supabase.co
+  supabaseKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlod3VnaGhpcWRvaXdrY3RiZGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3ODY2MTUsImV4cCI6MjA4ODM2MjYxNX0.dtKkp9l2G1hG4cLKYADZr93c0ZHKbjbgLVfyibXYkCg
+--- !u!114 &1257658669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257658658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ef762f5a11ee145ae52fd7999d4ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnityMainThreadDispatcher
 --- !u!1 &1327882216
 GameObject:
   m_ObjectHideFlags: 0

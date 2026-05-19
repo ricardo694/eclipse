@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     public int vida = 3;
     private Animator animator;
 
+    
+
     void Start()
     {
         playerVivo= true;

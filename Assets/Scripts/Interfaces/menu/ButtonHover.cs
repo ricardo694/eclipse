@@ -64,7 +64,8 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerClick(PointerEventData e)
     {
-        StartCoroutine(AnimacionClick());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(AnimacionClick());
     }
 
     IEnumerator AnimacionClick()
@@ -72,19 +73,21 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // Pequeño "squish" al hacer clic
         escalaObjetivo = 0.95f;
         yield return new WaitForSeconds(0.08f);
-        escalaObjetivo = estaHover ? escalaHover : 1f;
+        if (gameObject.activeInHierarchy)
+            escalaObjetivo = estaHover ? escalaHover : 1f;
     }
 
     IEnumerator LerpColorTexto(Color objetivo)
     {
         Color inicio = texto.color;
         float t = 0f;
-        while (t < 1f)
+        while (t < 1f && gameObject.activeInHierarchy)
         {
             t += Time.deltaTime * velocidadTransicion;
             texto.color = Color.Lerp(inicio, objetivo, t);
             yield return null;
         }
-        texto.color = objetivo;
+        if (gameObject.activeInHierarchy)
+            texto.color = objetivo;
     }
 }

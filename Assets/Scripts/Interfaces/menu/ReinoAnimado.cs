@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.InputSystem;
 public class ReinoAnimado : MonoBehaviour
 {
     [Header("Flotación")]
@@ -36,8 +36,8 @@ public class ReinoAnimado : MonoBehaviour
 
         // --- PARALLAX CON MOUSE ---
         // Convierte posición del mouse a rango -1 a 1
-        float mouseX = (Input.mousePosition.x / Screen.width  - 0.5f) * 2f;
-        float mouseY = (Input.mousePosition.y / Screen.height - 0.5f) * 2f;
+        float mouseX = (Mouse.current.position.x.value / Screen.width  - 0.5f) * 2f;
+        float mouseY = (Mouse.current.position.y.value / Screen.height - 0.5f) * 2f;
 
         parallaxObjetivo = new Vector2(mouseX * fuerzaParallax, mouseY * fuerzaParallax);
         parallaxActual = Vector2.Lerp(parallaxActual, parallaxObjetivo, 

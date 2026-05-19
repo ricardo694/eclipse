@@ -5,6 +5,9 @@ using System.Collections;
 
 public class LoginManager : MonoBehaviour
 {
+     [Header("Sistemas")]
+    public LoginSystem loginSystem;       
+    public RegisterSystem registerSystem;
     [Header("Login")]
     public TMP_InputField inputUsuario;
     public TMP_InputField inputPassword;
@@ -45,7 +48,7 @@ public class LoginManager : MonoBehaviour
         }
 
         // Todo válido — aquí irá la llamada al servidor después
-        Debug.Log($"Login: {usuario}");
+        loginSystem.Login(usuario, password);
     }
 
     // ─── REGISTER ────────────────────────────────────────
@@ -88,7 +91,7 @@ public class LoginManager : MonoBehaviour
         }
 
         // Todo válido — aquí irá la llamada al servidor después
-        Debug.Log($"Registro: {usuario} | {email}");
+        registerSystem.Register(usuario, email, password, confirmarPassword);
     }
 
     // ─── ALERTA ───────────────────────────────────────────
