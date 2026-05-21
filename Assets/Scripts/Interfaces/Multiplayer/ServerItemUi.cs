@@ -6,7 +6,7 @@ using TMPro;
 public class ServerItemUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Colores")]
-    public Color colorNormal     = new Color(0.08f, 0.08f, 0.15f); // fondo oscuro
+     public Color colorNormal     = new Color(0.08f, 0.08f, 0.15f); // fondo oscuro
     public Color colorHover      = new Color(0.05f, 0.15f, 0.20f); // azul tenue
     public Color colorSeleccionado = new Color(0.0f, 0.25f, 0.30f); // cian oscuro
 
@@ -78,7 +78,7 @@ public class ServerItemUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     void PonerEstadoNormal()
     {
-        fondo.color       = colorNormal;
+         fondo.color       = colorNormal;
         borde.effectColor = colorBordeNormal;
         borde.effectDistance = new Vector2(2, -2);
     }

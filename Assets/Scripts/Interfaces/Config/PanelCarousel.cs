@@ -78,7 +78,6 @@ public class PanelCarouselCircular : MonoBehaviour, IDragHandler, IEndDragHandle
 
             // Alpha según profundidad
             float targetAlpha = Mathf.Lerp(backAlpha, frontAlpha, t);
-
             if (instant)
             {
                 panels[i].anchoredPosition = targetPos;
@@ -88,13 +87,12 @@ public class PanelCarouselCircular : MonoBehaviour, IDragHandler, IEndDragHandle
             else
             {
                 panels[i].anchoredPosition = Vector2.Lerp(
-                    panels[i].anchoredPosition, targetPos, Time.deltaTime * animationSpeed);
+                    panels[i].anchoredPosition, targetPos, Time.unscaledDeltaTime * animationSpeed); // ✅
                 panels[i].localScale = Vector3.Lerp(
-                    panels[i].localScale, Vector3.one * targetScale, Time.deltaTime * animationSpeed);
+                    panels[i].localScale, Vector3.one * targetScale, Time.unscaledDeltaTime * animationSpeed); // ✅
                 canvasGroups[i].alpha = Mathf.Lerp(
-                    canvasGroups[i].alpha, targetAlpha, Time.deltaTime * animationSpeed);
+                    canvasGroups[i].alpha, targetAlpha, Time.unscaledDeltaTime * animationSpeed); // ✅
             }
-
             // Solo el del frente es interactuable
             bool isFront = (i == currentIndex);
             canvasGroups[i].interactable = isFront;

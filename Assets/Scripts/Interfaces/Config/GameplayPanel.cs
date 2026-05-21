@@ -58,7 +58,10 @@ public class GameplaySettings : MonoBehaviour
 
     public void OnExit()
     {
-        SceneManager.LoadScene("Menu");
+        if (SceneManager.GetActiveScene().name == "config")
+            SceneManager.LoadScene("Menu");
+        else
+            FindAnyObjectByType<Pausa>()?.RegresarAPausa();
     }
 
     void LoadSettings()

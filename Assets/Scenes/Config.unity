@@ -1294,7 +1294,7 @@ GameObject:
   - component: {fileID: 132647420}
   - component: {fileID: 132647423}
   m_Layer: 5
-  m_Name: Exit-button
+  m_Name: Regresar-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1363,7 +1363,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 132647421}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 566787136}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
+        m_MethodName: regresarDesdeConfig
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &132647421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5574,6 +5586,7 @@ GameObject:
   - component: {fileID: 566787130}
   - component: {fileID: 566787135}
   - component: {fileID: 566787134}
+  - component: {fileID: 566787136}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5707,6 +5720,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566787129}
   m_CullTransparentMesh: 1
+--- !u!114 &566787136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566787129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c008528e72f62845bdd645b568d03f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Navigation
 --- !u!1 &589069367
 GameObject:
   m_ObjectHideFlags: 0
@@ -15025,7 +15050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EXIT
+  m_text: Regresar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caf7ab4643ddbd544a9c47c8ef844e38, type: 2}
   m_sharedMaterial: {fileID: -1695011039700643927, guid: caf7ab4643ddbd544a9c47c8ef844e38, type: 2}

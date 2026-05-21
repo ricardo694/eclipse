@@ -318,7 +318,10 @@ public class VideoPanel : MonoBehaviour
     private void OnExit()
     {
         LoadValues();
-        SceneManager.LoadScene("Menu");
+        if (SceneManager.GetActiveScene().name == "config")
+            SceneManager.LoadScene("Menu");
+        else
+            FindAnyObjectByType<Pausa>()?.RegresarAPausa();
     }
 
     // =========================================================

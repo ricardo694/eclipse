@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.InputSystem;
 
 
 public class ControlsPanel : MonoBehaviour
@@ -95,7 +95,7 @@ public class ControlsPanel : MonoBehaviour
         if (_listeningAction == null) return;
 
         // Cancelar con Escape
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             CancelListening();
             return;
@@ -104,15 +104,56 @@ public class ControlsPanel : MonoBehaviour
         // Detectar cualquier tecla presionada
         foreach (KeyCode kc in System.Enum.GetValues(typeof(KeyCode)))
         {
-            if (!Input.GetKeyDown(kc))       continue;
-            if (_blacklist.Contains(kc))     continue;
-            if (kc >= KeyCode.JoystickButton0) continue; // ignorar joystick
+            if (kc >= KeyCode.JoystickButton0) continue;
+            if (_blacklist.Contains(kc))       continue;
 
-            AssignKey(_listeningAction.Value, kc);
-            return;
+            // Convertir KeyCode al nuevo Input System
+            var key = InputSystemKeyMapping(kc);
+            if (key != null && key.wasPressedThisFrame)
+            {
+                AssignKey(_listeningAction.Value, kc);
+                return;
+            }
         }
     }
 
+    private UnityEngine.InputSystem.Controls.KeyControl InputSystemKeyMapping(KeyCode kc)
+{
+    var kb = UnityEngine.InputSystem.Keyboard.current;
+    if (kb == null) return null;
+
+    return kc switch
+    {
+        KeyCode.A => kb.aKey, KeyCode.B => kb.bKey, KeyCode.C => kb.cKey,
+        KeyCode.D => kb.dKey, KeyCode.E => kb.eKey, KeyCode.F => kb.fKey,
+        KeyCode.G => kb.gKey, KeyCode.H => kb.hKey, KeyCode.I => kb.iKey,
+        KeyCode.J => kb.jKey, KeyCode.K => kb.kKey, KeyCode.L => kb.lKey,
+        KeyCode.M => kb.mKey, KeyCode.N => kb.nKey, KeyCode.O => kb.oKey,
+        KeyCode.P => kb.pKey, KeyCode.Q => kb.qKey, KeyCode.R => kb.rKey,
+        KeyCode.S => kb.sKey, KeyCode.T => kb.tKey, KeyCode.U => kb.uKey,
+        KeyCode.V => kb.vKey, KeyCode.W => kb.wKey, KeyCode.X => kb.xKey,
+        KeyCode.Y => kb.yKey, KeyCode.Z => kb.zKey,
+        KeyCode.Space     => kb.spaceKey,
+        KeyCode.Return    => kb.enterKey,
+        KeyCode.Backspace => kb.backspaceKey,
+        KeyCode.Tab       => kb.tabKey,
+        KeyCode.LeftShift => kb.leftShiftKey,  KeyCode.RightShift => kb.rightShiftKey,
+        KeyCode.LeftControl => kb.leftCtrlKey, KeyCode.RightControl => kb.rightCtrlKey,
+        KeyCode.LeftAlt   => kb.leftAltKey,    KeyCode.RightAlt => kb.rightAltKey,
+        KeyCode.UpArrow   => kb.upArrowKey,    KeyCode.DownArrow => kb.downArrowKey,
+        KeyCode.LeftArrow => kb.leftArrowKey,  KeyCode.RightArrow => kb.rightArrowKey,
+        KeyCode.Alpha0 => kb.digit0Key, KeyCode.Alpha1 => kb.digit1Key,
+        KeyCode.Alpha2 => kb.digit2Key, KeyCode.Alpha3 => kb.digit3Key,
+        KeyCode.Alpha4 => kb.digit4Key, KeyCode.Alpha5 => kb.digit5Key,
+        KeyCode.Alpha6 => kb.digit6Key, KeyCode.Alpha7 => kb.digit7Key,
+        KeyCode.Alpha8 => kb.digit8Key, KeyCode.Alpha9 => kb.digit9Key,
+        KeyCode.F1 => kb.f1Key,  KeyCode.F2 => kb.f2Key,  KeyCode.F3 => kb.f3Key,
+        KeyCode.F4 => kb.f4Key,  KeyCode.F5 => kb.f5Key,  KeyCode.F6 => kb.f6Key,
+        KeyCode.F7 => kb.f7Key,  KeyCode.F8 => kb.f8Key,  KeyCode.F9 => kb.f9Key,
+        KeyCode.F10 => kb.f10Key, KeyCode.F11 => kb.f11Key, KeyCode.F12 => kb.f12Key,
+        _ => null
+    };
+}
     // =========================================================
     // Setup
     // =========================================================
@@ -251,20 +292,19 @@ public class ControlsPanel : MonoBehaviour
 
     private void OnExit()
     {
-        // Recarga los bindings guardados (descarta cambios no guardados)
         LoadBindings();
         RefreshAllLabels();
-        SceneManager.LoadScene("Menu");
+        if (SceneManager.GetActiveScene().name == "config")
+            SceneManager.LoadScene("Menu");
+        else
+            FindAnyObjectByType<Pausa>()?.RegresarAPausa();
     }
 
     // =========================================================
     // Acceso público (para otros sistemas, ej: el Player)
     // =========================================================
 
-    /// <summary>
-    /// Devuelve la KeyCode asignada a una acción.
-    /// Uso: if (Input.GetKeyDown(ControlsPanel.Instance.GetKey(GameAction.Jump)))
-    /// </summary>
+
     public KeyCode GetKey(GameAction action)
     {
         return _bindings.TryGetValue(action, out KeyCode kc) ? kc : _defaults[action];

@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 public class Pausa : MonoBehaviour
 {
 
     public GameObject menuPausa;
+    public GameObject menuConfig;
     public bool juegoPausado = false ;
-
     private PlayerInput playerInput;
     private InputAction pauseAction ;
+
+
 
     void Awake()
     {
@@ -62,5 +64,16 @@ public class Pausa : MonoBehaviour
         menuPausa.SetActive(true);
         Time.timeScale = 0;
         juegoPausado = true;
+    }
+
+    public void IrAConfigDesdePausa()
+    {
+        menuPausa.SetActive(false);
+        menuConfig.SetActive(true); 
+    }
+    public void RegresarAPausa()
+    {
+        menuConfig.SetActive(false);
+        menuPausa.SetActive(true);
     }
 }

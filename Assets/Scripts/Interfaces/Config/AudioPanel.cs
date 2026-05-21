@@ -3,21 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
-// ============================================================
-//  AudioPanel.cs
-//  Adjunta este script al GameObject del panel de audio.
-//  Requiere: Unity UI + TextMeshPro + Audio Mixer
-// ============================================================
+
 
 public class AudioPanel : MonoBehaviour
 {
-    // ---------------------------------------------------------
-    // Referencias al Audio Mixer
-    // ---------------------------------------------------------
+ 
     [Header("Audio Mixer")]
     public AudioMixer audioMixer;
-    // Nombres de los parámetros expuestos en el Mixer:
-    // (clic derecho sobre el volumen en el Mixer → Expose parameter)
+
     private const string PARAM_MASTER = "MasterVolume";
     private const string PARAM_MUSIC  = "MusicVolume";
     private const string PARAM_SFX    = "SFXVolume";
@@ -155,11 +148,7 @@ public class AudioPanel : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // Aplicar volumen al Mixer
-    // El AudioMixer trabaja en decibeles: convertimos 0-1 a dB
-    // Fórmula: dB = log10(value) * 20   (0.001 mínimo para evitar -infinito)
-    // =========================================================
+
 
     private void ApplyVolume(string parameter, float linearValue)
     {
@@ -217,8 +206,11 @@ public class AudioPanel : MonoBehaviour
 
     private void OnExit()
     {
-        LoadValues(); // descarta cambios no guardados
-        SceneManager.LoadScene("Menu");
+        LoadValues();
+        if (SceneManager.GetActiveScene().name == "config")
+            SceneManager.LoadScene("Menu");
+        else
+            FindAnyObjectByType<Pausa>()?.RegresarAPausa();
     }
 
     // =========================================================
