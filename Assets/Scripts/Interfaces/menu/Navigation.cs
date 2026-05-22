@@ -33,7 +33,11 @@ public class Navigation : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-   
+    public void irAEdicion()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Edition");
+    }
 public void regresarDesdeConfig()
 {
 
