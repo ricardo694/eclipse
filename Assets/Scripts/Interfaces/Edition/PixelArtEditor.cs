@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PixelArtEditor : MonoBehaviour
 {
@@ -844,6 +845,37 @@ void ActualizarDesdeHSB()
 
     void GuardarPersonaje()
     {
-        Debug.Log("Personaje guardado — conectaremos esto en el Módulo 2");
+        if (_lienzo == null) return;
+
+        // Contar píxeles pintados
+        int pixeles = 0;
+        Color[] todosLosPixeles = _lienzo.GetPixels();
+        foreach (Color c in todosLosPixeles)
+            if (c.a > 0.01f) pixeles++;
+
+        // Crear copia del sprite para no perderlo al cambiar escena
+        Texture2D copia = new Texture2D(128, 128, TextureFormat.RGBA32, false);
+        copia.filterMode = FilterMode.Point;
+        Color[] pixelesOriginales = _lienzo.GetPixels();
+        Color[] pixelesVolteados = new Color[128 * 128];
+        for (int y = 0; y < 128; y++)
+        for (int x = 0; x < 128; x++)
+            pixelesVolteados[y * 128 + x] = pixelesOriginales[(127 - y) * 128 + x];
+        copia.SetPixels(pixelesVolteados);
+        copia.Apply();
+
+        // Crear CharacterData
+        CharacterData data = new CharacterData();
+        data.nombrePersonaje = "Mi personaje";
+        data.fechaCreacion   = System.DateTime.Now.ToString("dd/MM/yyyy");
+        data.pixelesPintados = pixeles;
+        data.spriteBase      = copia;
+
+        // Pasar datos a la escena de Preview
+        if (CharacterDataHolder.Instance != null)
+            CharacterDataHolder.Instance.SetData(data);
+
+        // Cambiar a escena de Preview
+        SceneManager.LoadScene("PreviewPersonaje");
     }
 }
