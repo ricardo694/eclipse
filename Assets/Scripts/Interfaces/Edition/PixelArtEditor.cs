@@ -47,7 +47,7 @@ public class PixelArtEditor : MonoBehaviour
     private RectInt _rectSeleccionOriginal;
 
     [Header("Acciones")]
-    public Button btnGuardar;
+    // public Button btnGuardar;
     public Button btnLimpiar;
 
     // ── Estado interno ──────────────────
@@ -215,7 +215,7 @@ public class PixelArtEditor : MonoBehaviour
         btnBorrador?.onClick.AddListener(() => CambiarHerramienta(Herramienta.Borrador));
         btnRelleno?.onClick.AddListener(() => CambiarHerramienta(Herramienta.Relleno));
         btnCuentagotas?.onClick.AddListener(() => CambiarHerramienta(Herramienta.Cuentagotas));
-        btnGuardar?.onClick.AddListener(GuardarPersonaje);
+        // btnGuardar?.onClick.AddListener(GuardarPersonaje);
         btnLimpiar?.onClick.AddListener(LimpiarLienzo);
         btnSeleccion?.onClick.AddListener(() => CambiarHerramienta(Herramienta.Seleccion));
         btnMover?.onClick.AddListener(() => Debug.Log("Usa el mouse para mover la selección"));
@@ -808,6 +808,39 @@ void ActualizarDesdeHSB()
         _anchoSeleccionOriginal = nuevoAncho;
         _altoSeleccionOriginal = nuevoAlto;
         _rectSeleccionOriginal = _rectSeleccion;
+    }
+
+    // ── Métodos públicos para EditorAnimacionController ──
+    public void LimpiarLienzoPublico()
+    {
+        LimpiarLienzo();
+    }
+
+    public Texture2D ObtenerSnapshotLienzo()
+    {
+        if (_lienzo == null) return null;
+        Texture2D snap = new Texture2D(128, 128, TextureFormat.RGBA32, false);
+        snap.filterMode = FilterMode.Point;
+        Color[] pixelesOriginales = _lienzo.GetPixels();
+        Color[] pixelesVolteados = new Color[128 * 128];
+        for (int y = 0; y < 128; y++)
+        for (int x = 0; x < 128; x++)
+            pixelesVolteados[y * 128 + x] = pixelesOriginales[(127 - y) * 128 + x];
+        snap.SetPixels(pixelesVolteados);
+        snap.Apply();
+        return snap;
+    }
+
+    public void CargarTexturaEnLienzo(Texture2D tex)
+    {
+        if (tex == null) return;
+        Color[] pixelesOriginales = tex.GetPixels();
+        Color[] pixelesVolteados = new Color[128 * 128];
+        for (int y = 0; y < 128; y++)
+        for (int x = 0; x < 128; x++)
+            pixelesVolteados[y * 128 + x] = pixelesOriginales[(127 - y) * 128 + x];
+        _lienzo.SetPixels(pixelesVolteados);
+        _lienzo.Apply();
     }
     // ── Utilidades ──────────────────────
     void CambiarHerramienta(Herramienta h)
