@@ -116,8 +116,8 @@ TextureImporter:
         y: 0
         width: 128
         height: 128
-      alignment: 9
-      pivot: {x: 0.472558, y: 0.5342314}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,8 +138,8 @@ TextureImporter:
         y: 0
         width: 128
         height: 128
-      alignment: 9
-      pivot: {x: 0.5137687, y: 0.5243086}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,8 +170,6 @@ TextureImporter:
     nameFileIdTable:
       Jump-sprite_0: 4371421561774777510
       Jump-sprite_1: -1083858060741994570
-      Jump-sprite_2: -5139671487708055606
-      Jump-sprite_3: 3881624901709025514
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

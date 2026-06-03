@@ -164,12 +164,6 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         );
         tocandoPared = Physics2D.OverlapBox(puntoPared, tamañoDetectorPared, 0f, capaSuelo);
 
-        
-        if (tocandoPared && !enSuelo)
-        {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        }
-
         if (!atacando && !dasheando)
         {
             Movimiento();
@@ -341,16 +335,8 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 
     if (!agachado)
     {
-        if (!enSuelo) 
-        {
-            col.size   = colliderSizeSalto;
-            col.offset = colliderOffsetSalto;
-        }
-        else 
-        {
             col.size   = colliderSizeNormal;
             col.offset = colliderOffsetNormal;
-        }
     }
 
 }
