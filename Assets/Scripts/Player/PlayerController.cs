@@ -15,16 +15,25 @@ public class PlayerController : MonoBehaviour
     float cont = 0f;
 
     [Header("Salto")]
-    public float fuerzaSalto = 10f;
-    public int maxSaltos = 2;
+    public float fuerzaSalto = 4.8f;
+    public int maxSaltos = 1;
     private int saltosRestantes = 0;
     private bool enSuelo;
     private Vector2 colliderSizeSalto;
     private Vector2 colliderOffsetSalto;
+    public float multiplicadorCorte = 0.65f;
 
     [Header("Detección de Suelo")]
     public Vector2 tamañoDetector = new Vector2(0.8f, 0.05f);
     public float offsetYDetector = 0.02f;
+    public float margenRaycastLateral = 0.05f;
+
+    [Header("Feel")]
+    public float coyoteTime = 0.12f;
+    public float jumpBufferTime = 0.12f;
+    private float coyoteCounter;
+    private float jumpBufferCounter;
+    private bool enSueloFisico; 
 
     [Header("Detección de Pared")]
     public Vector2 tamañoDetectorPared = new Vector2(0.05f, 0.6f);
@@ -32,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private bool tocandoPared;
 
     [Header("Vida")]
-    public int vida = 3;
+    public int vida = 20;
     public bool muerto;
 
     [Header("Daño")]
@@ -80,6 +89,7 @@ public class PlayerController : MonoBehaviour
     [Header("Input")]
     private Vector2 inputMovimiento;
     private bool saltoPulsado;
+    private bool saltoPulsadoMantenido;
     private bool dashPulsado;
     private bool ataquePulsado;
     private bool agacharPulsado;
@@ -109,6 +119,8 @@ public void OnMove(InputAction.CallbackContext context)
 public void OnJump(InputAction.CallbackContext context)
 {
     if (context.performed) saltoPulsado = true;
+    if (context.performed)  saltoPulsadoMantenido = true;
+    if (context.canceled)   saltoPulsadoMantenido = false;
 }
 
 public void OnDash(InputAction.CallbackContext context)
@@ -148,46 +160,83 @@ public void CrouchCanceled(InputAction.CallbackContext context)
             if (timerCooldown <= 0f)
                 dashDisponible = true;
         }
-
+        // --- Salto variable ---
+        if (!saltoPulsadoMantenido && rb.linearVelocity.y > 0f && !dasheando)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.65f);
         //Detección del suelo
-        Vector2 origenRaycast = new Vector2(
+        Vector2 origenDetector = new Vector2(
             transform.position.x + col.offset.x,
             transform.position.y + col.offset.y - col.size.y * 0.5f - offsetYDetector
         );
-        enSuelo = Physics2D.OverlapBox(origenRaycast, tamañoDetector, 0f, capaSuelo);
+        float mitad = tamañoDetector.x * 0.5f - margenRaycastLateral;
+        float baseY = transform.position.y + col.offset.y - col.size.y * 0.5f;
+        float distancia = offsetYDetector + 0.05f;
 
+        bool hitIzq    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x - mitad, baseY), Vector2.down, distancia, capaSuelo);
+        bool hitCentro = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x,         baseY), Vector2.down, distancia, capaSuelo);
+        bool hitDer    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x + mitad,  baseY), Vector2.down, distancia, capaSuelo);
+
+        enSueloFisico = hitIzq || hitCentro || hitDer;
+
+        // Coyote time
+        if (enSueloFisico)
+            coyoteCounter = coyoteTime;
+        else
+            coyoteCounter -= Time.deltaTime;
+
+        enSuelo = enSueloFisico;
         //Deteccion de pared
-        float dirección = transform.localScale.x; 
+        float dirección = transform.localScale.x;
         Vector2 puntoPared = new Vector2(
             transform.position.x + col.offset.x + (dirección * offsetXDetectorPared),
             transform.position.y + col.offset.y
         );
-        tocandoPared = Physics2D.OverlapBox(puntoPared, tamañoDetectorPared, 0f, capaSuelo);
+
+        RaycastHit2D hitPared = Physics2D.BoxCast(
+            new Vector2(transform.position.x + col.offset.x, transform.position.y + col.offset.y),
+            new Vector2(0.05f, tamañoDetectorPared.y),
+            0f,
+            new Vector2(dirección, 0f),
+            offsetXDetectorPared,
+            capaSuelo
+        );
+
+        tocandoPared = hitPared.collider != null && Vector2.Angle(hitPared.normal, Vector2.up) > 45f;
+
+    // --- Jump buffer ---
+        if (saltoPulsado)
+            jumpBufferCounter = jumpBufferTime;
+        else
+            jumpBufferCounter -= Time.deltaTime;
 
         if (!atacando && !dasheando)
         {
             Movimiento();
-           
-       
-        if (enSuelo)
-            saltosRestantes = maxSaltos; 
 
-        if (saltoPulsado && saltosRestantes > 0 && !recibiendoDano && !agachado)
-        {
-            soundController.PlaySaltar();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
-            rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
-            saltosRestantes--;
+            // Restaurar saltos solo al tocar suelo real
+            if (enSueloFisico)
+                saltosRestantes = maxSaltos;
+
+            // Salto con coyote + buffer
+            if (jumpBufferCounter > 0f
+                && coyoteCounter > 0f
+                && saltosRestantes > 0
+                && !recibiendoDano && !agachado)
+            {
+                soundController.PlaySaltar();
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+                rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
+                saltosRestantes--;
+                jumpBufferCounter = 0f;
+                coyoteCounter     = 0f;
+            }
         }
-    }
 
         if (!muerto)
         {
              // --- Input dash (K) ---
             if (dashPulsado && dashDisponible && !dasheando && !atacando && !recibiendoDano && !agachado)
-            {
                 IniciarDash();
-            }
 
             // --- Input ataque (J) ---
             if (ataquePulsado  && !dasheando && enSuelo)
@@ -311,35 +360,44 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 
 
     void ManejarAgacharse()
-{
-    bool quiereAgacharse = agacharPulsado && enSuelo;
-
-    if (quiereAgacharse && !agachado)
     {
-        agachado = true;
-        col.size   = colliderSizeAgachado;
-        col.offset = colliderOffsetAgachado;
-    }
+        bool quiereAgacharse = agacharPulsado && enSuelo;
 
-    if (!quiereAgacharse && agachado)
-    {
-        Vector2 puntoArriba = (Vector2)transform.position + Vector2.up * (colliderSizeNormal.y * 0.5f);
-        bool hayEspacio = !Physics2D.OverlapCircle(puntoArriba, radioCheckArriba, capaTecho);
-
-        if (hayEspacio)
+        if (quiereAgacharse && !agachado)
         {
-            agachado = false;
+            agachado = true;
+            col.size   = colliderSizeAgachado;
+            col.offset = colliderOffsetAgachado;
         }
-    }
 
+        if (!quiereAgacharse && agachado)
+        {
 
-    if (!agachado)
-    {
+            LayerMask mascaraCheck = capaTecho != 0 ? capaTecho : capaSuelo;
+
+            Vector2 puntoArriba = new Vector2(
+                transform.position.x + colliderOffsetNormal.x,
+                transform.position.y + colliderOffsetNormal.y + colliderSizeNormal.y * 0.5f - 0.05f
+            );
+
+            bool hayObstaculo = Physics2D.OverlapBox(puntoArriba, 
+                new Vector2(colliderSizeNormal.x * 0.8f, 0.1f), 0f, mascaraCheck);
+
+            if (!hayObstaculo)
+            {
+                agachado = false;
+                col.size   = colliderSizeNormal;
+                col.offset = colliderOffsetNormal;
+            }
+  
+        }
+
+        if (!agachado)
+        {
             col.size   = colliderSizeNormal;
             col.offset = colliderOffsetNormal;
+        }
     }
-
-}
     public void Movimiento()
     {
 
@@ -432,8 +490,6 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         if (comboRegistrado && comboContador < 1)
         {
             comboContador++;
-            float dir = transform.localScale.x;
-            rb.AddForce(new Vector2(dir * 6f, 0f), ForceMode2D.Impulse); 
             Atacando();
         }
         else
@@ -453,19 +509,22 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 
     void OnDrawGizmos()
     {
-         //  Detector suelo
         if (col == null) return;
 
-        Vector2 puntoDetector = new Vector2(
-            transform.position.x + col.offset.x,
-            transform.position.y + col.offset.y - col.size.y * 0.5f - offsetYDetector
-        );
+        // Raycasts de suelo
+        float mitadGizmo = tamañoDetector.x * 0.5f - margenRaycastLateral;
+        float baseYGizmo = transform.position.y + col.offset.y - col.size.y * 0.5f;
+        float distanciaGizmo = offsetYDetector + 0.05f;
 
         Gizmos.color = enSuelo ? Color.green : Color.red;
-        Gizmos.DrawWireCube(puntoDetector, tamañoDetector);
+        Gizmos.DrawLine(new Vector2(transform.position.x + col.offset.x - mitadGizmo, baseYGizmo),
+                        new Vector2(transform.position.x + col.offset.x - mitadGizmo, baseYGizmo - distanciaGizmo));
+        Gizmos.DrawLine(new Vector2(transform.position.x + col.offset.x,              baseYGizmo),
+                        new Vector2(transform.position.x + col.offset.x,              baseYGizmo - distanciaGizmo));
+        Gizmos.DrawLine(new Vector2(transform.position.x + col.offset.x + mitadGizmo, baseYGizmo),
+                        new Vector2(transform.position.x + col.offset.x + mitadGizmo, baseYGizmo - distanciaGizmo));
 
-
-        //  Detector pared
+        // Detector pared
         float dirección = transform.localScale.x;
         Vector2 puntoPared = new Vector2(
             transform.position.x + col.offset.x + (dirección * offsetXDetectorPared),

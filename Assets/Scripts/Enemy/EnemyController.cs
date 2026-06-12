@@ -1,6 +1,3 @@
-
-using UnityEditor.Animations;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -9,7 +6,7 @@ public class EnemyController : MonoBehaviour
     public float detectionRadius = 0.5f;
     public float speed = 2.0f;
     private Rigidbody2D rb;
-    private Vector2 movement;
+    private float movementX;
     private bool enMovimiento;
     private bool recibiendoDano;
     public float fuerzaRebote = 0.2f;
@@ -54,17 +51,17 @@ public class EnemyController : MonoBehaviour
                 transform.localScale = new Vector3(1, 1, 1);
             }
 
-            movement = new Vector2(direction.x, 0);
+            movementX = direction.x;
 
             enMovimiento = true;
         }
         else
         {
-            movement = Vector2.zero;
+            movementX = 0;
             enMovimiento = false;
         }
         if(!recibiendoDano)
-            rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+            rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);
 
     }
 
@@ -113,6 +110,7 @@ public class EnemyController : MonoBehaviour
             recibiendoDano = true;
             if (vida <=0)
             {
+                rb. linearVelocity = Vector2.zero;
                 muerto=true;
                 enMovimiento = false;
             }

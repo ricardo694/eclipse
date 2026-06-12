@@ -55,12 +55,14 @@ public class Pausa : MonoBehaviour
     public void Reanudar()
     {
         menuPausa.SetActive(false);
+        menuConfig.SetActive(false);
         Time.timeScale = 1;
         juegoPausado = false;
     }
 
     public void Pausar()
     {
+        menuConfig.SetActive(false);
         menuPausa.SetActive(true);
         Time.timeScale = 0;
         juegoPausado = true;
