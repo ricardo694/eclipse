@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public int maxSaltos = 1;
     private int saltosRestantes = 0;
     private bool enSuelo;
+    private bool esSaltando;
     private Vector2 colliderSizeSalto;
     private Vector2 colliderOffsetSalto;
     public float multiplicadorCorte = 0.65f;
@@ -35,10 +36,22 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCounter;
     private bool enSueloFisico; 
 
+    public float fallGravityMultiplier = 1.3f;
+    public float maxFallSpeed = 2f;
+
+    public float hangThreshold = 1.5f; 
+    public float hangGravity = 0.4f;
+
     [Header("Detección de Pared")]
     public Vector2 tamañoDetectorPared = new Vector2(0.05f, 0.6f);
     public float offsetXDetectorPared = 0.5f;
     private bool tocandoPared;
+    private float direccionPared; 
+    [Header("Wall Jump / Wall Slide")]
+    public float velocidadWallSlide = 0.8f;  // qué tan lento baja en la pared
+    public float fuerzaWallJumpX = 4f;       // impulso horizontal al saltar
+    public float fuerzaWallJumpY = 5f;       // impulso vertical al saltar
+    private bool enPared;  
 
     [Header("Vida")]
     public int vida = 20;
@@ -143,128 +156,159 @@ public void CrouchCanceled(InputAction.CallbackContext context)
     if (context.canceled) agacharPulsado = false;
 }
     // =====================================================================
-    void Update()
+void Update()
+{
+    if (Time.timeScale == 0) return;
+
+    // --- Timers del dash ---
+    if (dasheando)
     {
-        if (Time.timeScale == 0) return;
-        // --- Timers del dash ---
-        if (dasheando)
-        {
-            timerDash -= Time.deltaTime;
-            if (timerDash <= 0f)
-                TerminarDash();
-        }
+        timerDash -= Time.deltaTime;
+        if (timerDash <= 0f) TerminarDash();
+    }
+    if (!dashDisponible)
+    {
+        timerCooldown -= Time.deltaTime;
+        if (timerCooldown <= 0f) dashDisponible = true;
+    }
 
-        if (!dashDisponible)
-        {
-            timerCooldown -= Time.deltaTime;
-            if (timerCooldown <= 0f)
-                dashDisponible = true;
-        }
-        // --- Salto variable ---
-        if (!saltoPulsadoMantenido && rb.linearVelocity.y > 0f && !dasheando)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.65f);
-        //Detección del suelo
-        Vector2 origenDetector = new Vector2(
-            transform.position.x + col.offset.x,
-            transform.position.y + col.offset.y - col.size.y * 0.5f - offsetYDetector
-        );
-        float mitad = tamañoDetector.x * 0.5f - margenRaycastLateral;
-        float baseY = transform.position.y + col.offset.y - col.size.y * 0.5f;
-        float distancia = offsetYDetector + 0.05f;
+    // ── 1. DETECCIÓN (suelo y pared primero) ──────────────────────────
+    float mitad = tamañoDetector.x * 0.5f - margenRaycastLateral;
+    float baseY = transform.position.y + col.offset.y - col.size.y * 0.5f;
+    float distancia = offsetYDetector + 0.05f;
 
-        bool hitIzq    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x - mitad, baseY), Vector2.down, distancia, capaSuelo);
-        bool hitCentro = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x,         baseY), Vector2.down, distancia, capaSuelo);
-        bool hitDer    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x + mitad,  baseY), Vector2.down, distancia, capaSuelo);
+    bool hitIzq    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x - mitad, baseY), Vector2.down, distancia, capaSuelo);
+    bool hitCentro = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x,         baseY), Vector2.down, distancia, capaSuelo);
+    bool hitDer    = Physics2D.Raycast(new Vector2(transform.position.x + col.offset.x + mitad,  baseY), Vector2.down, distancia, capaSuelo);
 
-        enSueloFisico = hitIzq || hitCentro || hitDer;
+    enSueloFisico = hitIzq || hitCentro || hitDer;
+    enSuelo = enSueloFisico;
 
-        // Coyote time
+    float dirección = transform.localScale.x;
+    RaycastHit2D hitPared = Physics2D.BoxCast(
+        new Vector2(transform.position.x + col.offset.x, transform.position.y + col.offset.y),
+        new Vector2(0.05f, tamañoDetectorPared.y),
+        0f,
+        new Vector2(dirección, 0f),
+        offsetXDetectorPared,
+        capaSuelo
+    );
+    tocandoPared = hitPared.collider != null && Vector2.Angle(hitPared.normal, Vector2.up) > 45f;
+    enPared = tocandoPared && !enSuelo;
+    if (enPared) direccionPared = dirección;
+
+    // ── 2. COYOTE TIME ────────────────────────────────────────────────
+    if (enSueloFisico)
+        coyoteCounter = coyoteTime;
+    else
+        coyoteCounter -= Time.deltaTime;
+
+    // ── 3. JUMP BUFFER ────────────────────────────────────────────────
+    if (saltoPulsado)
+        jumpBufferCounter = jumpBufferTime;
+    else
+        jumpBufferCounter -= Time.deltaTime;
+
+    // ── 4. SALTOS ─────────────────────────────────────────────────────
+    if (!atacando && !dasheando && !recibiendoDano)
+    {
         if (enSueloFisico)
-            coyoteCounter = coyoteTime;
-        else
-            coyoteCounter -= Time.deltaTime;
+            saltosRestantes = maxSaltos;
 
-        enSuelo = enSueloFisico;
-        //Deteccion de pared
-        float dirección = transform.localScale.x;
-        Vector2 puntoPared = new Vector2(
-            transform.position.x + col.offset.x + (dirección * offsetXDetectorPared),
-            transform.position.y + col.offset.y
-        );
-
-        RaycastHit2D hitPared = Physics2D.BoxCast(
-            new Vector2(transform.position.x + col.offset.x, transform.position.y + col.offset.y),
-            new Vector2(0.05f, tamañoDetectorPared.y),
-            0f,
-            new Vector2(dirección, 0f),
-            offsetXDetectorPared,
-            capaSuelo
-        );
-
-        tocandoPared = hitPared.collider != null && Vector2.Angle(hitPared.normal, Vector2.up) > 45f;
-
-    // --- Jump buffer ---
-        if (saltoPulsado)
-            jumpBufferCounter = jumpBufferTime;
-        else
-            jumpBufferCounter -= Time.deltaTime;
-
-        if (!atacando && !dasheando)
+        if (jumpBufferCounter > 0f)
         {
-            Movimiento();
-
-            // Restaurar saltos solo al tocar suelo real
-            if (enSueloFisico)
-                saltosRestantes = maxSaltos;
-
-            // Salto con coyote + buffer
-            if (jumpBufferCounter > 0f
-                && coyoteCounter > 0f
-                && saltosRestantes > 0
-                && !recibiendoDano && !agachado)
+            // Wall jump — prioridad sobre salto normal
+            if (enPared)
+            {
+                soundController.PlaySaltar();
+                rb.linearVelocity = new Vector2(-direccionPared * fuerzaWallJumpX, fuerzaWallJumpY);
+                jumpBufferCounter = 0f;
+                esSaltando = true;
+            }
+            // Salto normal
+            else if (coyoteCounter > 0f && saltosRestantes > 0 && !agachado)
             {
                 soundController.PlaySaltar();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
                 rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
                 saltosRestantes--;
                 jumpBufferCounter = 0f;
-                coyoteCounter     = 0f;
+                coyoteCounter = 0f;
+                esSaltando = true;
             }
         }
-
-        if (!muerto)
-        {
-             // --- Input dash (K) ---
-            if (dashPulsado && dashDisponible && !dasheando && !atacando && !recibiendoDano && !agachado)
-                IniciarDash();
-
-            // --- Input ataque (J) ---
-            if (ataquePulsado  && !dasheando && enSuelo)
-            {
-                if (!atacando)
-                {
-                    comboContador = 0;
-                    Atacando();
-                }
-                else if (atacando && !comboRegistrado && comboContador < 1)
-                {
-                    comboRegistrado = true; 
-                }
-            }
-
-            ManejarAgacharse();
-
-            // Limpiar flags de un solo frame
-            saltoPulsado  = false;
-            dashPulsado   = false;
-            ataquePulsado = false;
-        }
-       
-        Animaciones();
-   
-
-        
     }
+
+    // ── 5. GRAVEDAD ───────────────────────────────────────────────────
+    if (dasheando)
+    {
+        // dash maneja su propia gravedad
+    }
+    else if (enPared && rb.linearVelocity.y < 0f)
+    {
+        // Wall slide — pisa todo lo demás
+        rb.gravityScale = 1f;
+        rb.linearVelocity = new Vector2(
+            rb.linearVelocity.x,
+            Mathf.Max(rb.linearVelocity.y, -velocidadWallSlide)
+        );
+    }
+    else if (!enSuelo && rb.linearVelocity.y < 0f)
+    {
+        // Cayendo normal
+        rb.gravityScale = fallGravityMultiplier;
+        rb.linearVelocity = new Vector2(
+            rb.linearVelocity.x,
+            Mathf.Max(rb.linearVelocity.y, -maxFallSpeed)
+        );
+    }
+    else if (esSaltando && !enSuelo && Mathf.Abs(rb.linearVelocity.y) < hangThreshold)
+    {
+        // Jump hang
+        rb.gravityScale = hangGravity;
+    }
+    else
+    {
+        rb.gravityScale = 1f;
+    }
+
+    if (enSueloFisico) esSaltando = false;
+
+    // ── 6. SALTO VARIABLE ─────────────────────────────────────────────
+    if (!saltoPulsadoMantenido && rb.linearVelocity.y > 0f && !dasheando && !enPared)
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.65f);
+
+    // ── 7. MOVIMIENTO + ACCIONES ──────────────────────────────────────
+    if (!atacando && !dasheando)
+        Movimiento();
+
+    if (!muerto)
+    {
+        if (dashPulsado && dashDisponible && !dasheando && !atacando && !recibiendoDano && !agachado)
+            IniciarDash();
+
+        if (ataquePulsado && !dasheando && enSuelo)
+        {
+            if (!atacando)
+            {
+                comboContador = 0;
+                Atacando();
+            }
+            else if (atacando && !comboRegistrado && comboContador < 1)
+            {
+                comboRegistrado = true;
+            }
+        }
+
+        ManejarAgacharse();
+
+        saltoPulsado  = false;
+        dashPulsado   = false;
+        ataquePulsado = false;
+    }
+
+    Animaciones();
+}
 
     public void IniciarDash()
     {
@@ -461,6 +505,7 @@ public void CrouchCanceled(InputAction.CallbackContext context)
         animator.SetBool("dasheando", dasheando);
         animator.SetBool("agachado", agachado);
         animator.SetBool("muerto",muerto);
+        animator.SetBool("enPared",enPared);
     }
 
     void FixedUpdate()
