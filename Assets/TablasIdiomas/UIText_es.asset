@@ -1,0 +1,323 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UIText_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: adda88c53c4b5f74b82b2e23cff07bf9, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 181686129479680
+    m_Localized: unirse a servidor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181434236358656
+    m_Localized: Servidores multijugador
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180717589188608
+    m_Localized: Regresar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180633766023168
+    m_Localized: Continuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180470586626048
+    m_Localized: Nueva partida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 178894648201216
+    m_Localized: Modo histora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179113536344064
+    m_Localized: multijugador
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179202665304064
+    m_Localized: Acceso
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179405879332864
+    m_Localized: "Configuraci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179528046825472
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181825543950336
+    m_Localized: Crear servidor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181921555763200
+    m_Localized: Refrescar lista
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182147293204480
+    m_Localized: Conectar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182490932531200
+    m_Localized: Nombre del servidor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182596951953408
+    m_Localized: Numero de jugadores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182763805560832
+    m_Localized: "Contrase\xF1a"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182856180912128
+    m_Localized: Crear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183001186390016
+    m_Localized: "Inicar sesi\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183139325792256
+    m_Localized: Registrarse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183242576973824
+    m_Localized: Nombre de usuario
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183338148384768
+    m_Localized: "Contrase\xF1a"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183410701455360
+    m_Localized: Iniciar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183660711333888
+    m_Localized: iniciar con google
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183811848884224
+    m_Localized: O
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183877502324736
+    m_Localized: Nuevo usuario
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183961862361088
+    m_Localized: Correo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184057635098624
+    m_Localized: "Confirmar contrase\xF1a"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184190149939200
+    m_Localized: Crear cuenta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184329191116800
+    m_Localized: Enemigos eliminados
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184463308181504
+    m_Localized: Victorias
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184546619641856
+    m_Localized: "Cerrar sesi\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184773925752832
+    m_Localized: Guardar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184845757403136
+    m_Localized: Reestablecer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185010761322496
+    m_Localized: Controles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185079006842880
+    m_Localized: Movimientos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185157381607424
+    m_Localized: Atacar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185240827285504
+    m_Localized: Agacharse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185310255599616
+    m_Localized: Moverse a la izquierda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185438194454528
+    m_Localized: Moverse a la derecha
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185544809467904
+    m_Localized: Acciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185622446034944
+    m_Localized: Saltar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185725051293696
+    m_Localized: Dashear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185817435033600
+    m_Localized: Audiio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185903359545344
+    m_Localized: Volumen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186015779475456
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186086382194688
+    m_Localized: Musica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186149259005952
+    m_Localized: Efectos especiales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186314690744320
+    m_Localized: Opciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186412644519936
+    m_Localized: Mutear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186553245978624
+    m_Localized: Video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186617611767808
+    m_Localized: Display
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190873416847360
+    m_Localized: "Resoluci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190974067560448
+    m_Localized: Pantalla completa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191248593145856
+    m_Localized: Vsync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191321234296832
+    m_Localized: Calidad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191444894961664
+    m_Localized: Brillo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191583961305088
+    m_Localized: Jugabilidad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191687925518336
+    m_Localized: Preferencias
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191758922502144
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191842447872000
+    m_Localized: Fps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192100791832576
+    m_Localized: "Creaci\xF3n de pixel art"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192224024678400
+    m_Localized: Herramientas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192321890373632
+    m_Localized: "Tama\xF1o de pincel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192445207105536
+    m_Localized: "Animaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192688757755904
+    m_Localized: "Da\xF1o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192849663840256
+    m_Localized: Color y propiedades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193000235159552
+    m_Localized: Color activo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193070032572416
+    m_Localized: "Silueta gu\xEDa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193377437306880
+    m_Localized: Selecto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194043916406784
+    m_Localized: Pausa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194118616961024
+    m_Localized: Reanudar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194438579441664
+    m_Localized: Reiniciar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194707241390080
+    m_Localized: En serio?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207292120518656
+    m_Localized: Inactivo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207727787069440
+    m_Localized: Correr
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

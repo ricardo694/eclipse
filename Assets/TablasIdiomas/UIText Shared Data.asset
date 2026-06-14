@@ -1,0 +1,332 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UIText Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: UIText
+  m_TableCollectionNameGuidString: adda88c53c4b5f74b82b2e23cff07bf9
+  m_Entries:
+  - m_Id: 178894648201216
+    m_Key: ui_menu_story
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179113536344064
+    m_Key: ui_menu_multiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179202665304064
+    m_Key: ui_menu_login
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179405879332864
+    m_Key: ui_settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179528046825472
+    m_Key: ui_menu_exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180470586626048
+    m_Key: ui_story_newGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180633766023168
+    m_Key: ui_story_continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180717589188608
+    m_Key: ui_back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181434236358656
+    m_Key: ui_multiplayer_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181686129479680
+    m_Key: ui_multiplayer_joinServer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181825543950336
+    m_Key: ui_multiplayer_createServer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181921555763200
+    m_Key: ui_multiplayer_refreshList
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182147293204480
+    m_Key: ui_multiplayer_connect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182490932531200
+    m_Key: ui_multiplayer_serverName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182596951953408
+    m_Key: ui_multiplayer_numberPlayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182763805560832
+    m_Key: ui_multiplayer_password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182856180912128
+    m_Key: ui_multiplayer_create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183001186390016
+    m_Key: ui_login
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183139325792256
+    m_Key: ui_register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183242576973824
+    m_Key: ui_login_username
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183338148384768
+    m_Key: ui_login_passwod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183410701455360
+    m_Key: ui_login_submit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183660711333888
+    m_Key: ui_login_signGoogle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183811848884224
+    m_Key: ui_login_or
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183877502324736
+    m_Key: ui_register_newUsername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183961862361088
+    m_Key: ui_register_email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184057635098624
+    m_Key: ui_register_confirmPassword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184190149939200
+    m_Key: ui_register_createAccount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184329191116800
+    m_Key: ui_perfil_enemiesEliminater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184463308181504
+    m_Key: ui_perfil_victories
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184546619641856
+    m_Key: ui_perfil_closeSession
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184773925752832
+    m_Key: ui_settings_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184845757403136
+    m_Key: ui_settings_default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185010761322496
+    m_Key: ui_settings_controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185079006842880
+    m_Key: ui_settings_movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185157381607424
+    m_Key: ui_settings_atack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185240827285504
+    m_Key: ui_settings_crouch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185310255599616
+    m_Key: ui_settings_moveLeft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185438194454528
+    m_Key: ui_settings_moveRight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185544809467904
+    m_Key: ui_settings_actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185622446034944
+    m_Key: ui_settings_jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185725051293696
+    m_Key: ui_settings_dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185817435033600
+    m_Key: ui_settings_audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185903359545344
+    m_Key: ui_settings_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186015779475456
+    m_Key: ui_settings_master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186086382194688
+    m_Key: ui_settings_music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186149259005952
+    m_Key: ui_settings_sfx
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186314690744320
+    m_Key: ui_settings_options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186412644519936
+    m_Key: ui_settings_muteAll
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186510174670848
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186553245978624
+    m_Key: ui_settings_video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186617611767808
+    m_Key: ui_settings_display
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190873416847360
+    m_Key: ui_settings_Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190974067560448
+    m_Key: ui_settings_fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191248593145856
+    m_Key: ui_settings_vsync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191321234296832
+    m_Key: ui_settings_quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191444894961664
+    m_Key: ui_setting_brightness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191583961305088
+    m_Key: ui_settings_gameplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191687925518336
+    m_Key: ui_settings_preferences
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191758922502144
+    m_Key: ui_settings_Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191842447872000
+    m_Key: ui_settings_fps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192100791832576
+    m_Key: ui_edition_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192224024678400
+    m_Key: ui_edition_tools
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192321890373632
+    m_Key: ui_edition_brushSize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192445207105536
+    m_Key: ui_edition_animation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192688757755904
+    m_Key: ui_edition_Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192849663840256
+    m_Key: ui_edition_colorProperties
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193000235159552
+    m_Key: ui_edition_activeColor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193070032572416
+    m_Key: ui_edition_silhouette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193377437306880
+    m_Key: ui_edition_selector
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194043916406784
+    m_Key: ui_pause_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194118616961024
+    m_Key: ui_pause_resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194438579441664
+    m_Key: ui_restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194707241390080
+    m_Key: ui_gameOver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207292120518656
+    m_Key: ui_edition_idle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207727787069440
+    m_Key: ui_edition_run
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2677257259765989712
+  references:
+    version: 2
+    RefIds:
+    - rid: 2677257259765989712
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1781423156796

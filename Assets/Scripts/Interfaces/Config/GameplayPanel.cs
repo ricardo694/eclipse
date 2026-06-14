@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Settings;
+using System.Collections;
+
 public class GameplaySettings : MonoBehaviour
 {
     [Header("Language")]
@@ -9,25 +12,50 @@ public class GameplaySettings : MonoBehaviour
     [Header("FPS Cap")]
     public TMP_Dropdown fpsDropdown;
 
-    // Opciones de idioma
-    private string[] languages = { "English", "Español", "French", "Deutsch", "Português" };
-
-    // Opciones de FPS
-    private int[] fpsOptions = { 30, 60, 120, 144, 240, 0 }; // 0 = Unlimited
+    private int[] fpsOptions = { 30, 60, 120, 144, 240, 0 };
+    private bool _localesLoaded = false;
 
     void Start()
     {
-        PopulateDropdowns();
-        LoadSettings();
+        PopulateFPSDropdown();
+        LoadFPSSettings();
+        StartCoroutine(SetupLanguageDropdown());
     }
 
-    void PopulateDropdowns()
+    // ── Idioma ────────────────────────────────────────────────
+    private IEnumerator SetupLanguageDropdown()
     {
-        // Llenar idiomas
-        languageDropdown.ClearOptions();
-        languageDropdown.AddOptions(new System.Collections.Generic.List<string>(languages));
+        // Espera a que el sistema de localización esté listo
+        yield return LocalizationSettings.InitializationOperation;
 
-        // Llenar FPS
+        languageDropdown.ClearOptions();
+        var options = new System.Collections.Generic.List<string>();
+
+        var locales = LocalizationSettings.AvailableLocales.Locales;
+        foreach (var locale in locales)
+            options.Add(locale.LocaleName);
+
+        languageDropdown.AddOptions(options);
+
+        // Seleccionar el idioma actual guardado
+        int savedIndex = PlayerPrefs.GetInt("LanguageIndex", 0);
+        languageDropdown.value = savedIndex;
+        languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+
+        _localesLoaded = true;
+    }
+
+    private void OnLanguageChanged(int index)
+    {
+        if (!_localesLoaded) return;
+        var locales = LocalizationSettings.AvailableLocales.Locales;
+        if (index < locales.Count)
+            LocalizationSettings.SelectedLocale = locales[index];
+    }
+
+    // ── FPS ───────────────────────────────────────────────────
+    void PopulateFPSDropdown()
+    {
         fpsDropdown.ClearOptions();
         var fpsList = new System.Collections.Generic.List<string>();
         foreach (int fps in fpsOptions)
@@ -35,25 +63,32 @@ public class GameplaySettings : MonoBehaviour
         fpsDropdown.AddOptions(fpsList);
     }
 
+    void LoadFPSSettings()
+    {
+        int fpsIndex = PlayerPrefs.GetInt("FPSIndex", 2);
+        fpsDropdown.value = fpsIndex;
+        Application.targetFrameRate = fpsOptions[fpsIndex];
+    }
+
+    // ── Botones ───────────────────────────────────────────────
     public void OnSave()
     {
         // Guardar idioma
-        int langIndex = languageDropdown.value;
-        PlayerPrefs.SetInt("LanguageIndex", langIndex);
+        PlayerPrefs.SetInt("LanguageIndex", languageDropdown.value);
 
-        // Guardar y aplicar FPS
+        // Guardar FPS
         int fpsIndex = fpsDropdown.value;
         PlayerPrefs.SetInt("FPSIndex", fpsIndex);
         Application.targetFrameRate = fpsOptions[fpsIndex];
 
         PlayerPrefs.Save();
-        Debug.Log($"Guardado — Idioma: {languages[langIndex]}, FPS: {fpsOptions[fpsIndex]}");
     }
 
     public void OnDefault()
     {
-        languageDropdown.value = 0;   // English
-        fpsDropdown.value = 2;        // 120
+        languageDropdown.value = 0;   // primer idioma
+        fpsDropdown.value = 2;        // 120 FPS
+        OnLanguageChanged(0);
     }
 
     public void OnExit()
@@ -62,14 +97,5 @@ public class GameplaySettings : MonoBehaviour
             SceneManager.LoadScene("Menu");
         else
             FindAnyObjectByType<Pausa>()?.RegresarAPausa();
-    }
-
-    void LoadSettings()
-    {
-        languageDropdown.value = PlayerPrefs.GetInt("LanguageIndex", 0);
-
-        int fpsIndex = PlayerPrefs.GetInt("FPSIndex", 2); // Default: 120
-        fpsDropdown.value = fpsIndex;
-        Application.targetFrameRate = fpsOptions[fpsIndex];
     }
 }

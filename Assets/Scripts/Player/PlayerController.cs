@@ -47,11 +47,14 @@ public class PlayerController : MonoBehaviour
     public float offsetXDetectorPared = 0.5f;
     private bool tocandoPared;
     private float direccionPared; 
+
     [Header("Wall Jump / Wall Slide")]
     public float velocidadWallSlide = 0.8f;  // qué tan lento baja en la pared
     public float fuerzaWallJumpX = 4f;       // impulso horizontal al saltar
     public float fuerzaWallJumpY = 5f;       // impulso vertical al saltar
     private bool enPared;  
+    private float timerPostWallJump = 0f;      // ← nueva
+    public float duracionPostWallJump = 0.15f; 
 
     [Header("Vida")]
     public int vida = 20;
@@ -172,6 +175,10 @@ void Update()
         if (timerCooldown <= 0f) dashDisponible = true;
     }
 
+    // Timer post wall jump
+    if (timerPostWallJump > 0f)
+        timerPostWallJump -= Time.deltaTime;
+
     // ── 1. DETECCIÓN (suelo y pared primero) ──────────────────────────
     float mitad = tamañoDetector.x * 0.5f - margenRaycastLateral;
     float baseY = transform.position.y + col.offset.y - col.size.y * 0.5f;
@@ -194,7 +201,7 @@ void Update()
         capaSuelo
     );
     tocandoPared = hitPared.collider != null && Vector2.Angle(hitPared.normal, Vector2.up) > 45f;
-    enPared = tocandoPared && !enSuelo;
+    enPared = tocandoPared && !enSuelo && timerPostWallJump <= 0f;
     if (enPared) direccionPared = dirección;
 
     // ── 2. COYOTE TIME ────────────────────────────────────────────────
@@ -217,13 +224,14 @@ void Update()
 
         if (jumpBufferCounter > 0f)
         {
-            // Wall jump — prioridad sobre salto normal
+            // Wall jump —
             if (enPared)
             {
                 soundController.PlaySaltar();
                 rb.linearVelocity = new Vector2(-direccionPared * fuerzaWallJumpX, fuerzaWallJumpY);
                 jumpBufferCounter = 0f;
                 esSaltando = true;
+                timerPostWallJump = duracionPostWallJump;
             }
             // Salto normal
             else if (coyoteCounter > 0f && saltosRestantes > 0 && !agachado)

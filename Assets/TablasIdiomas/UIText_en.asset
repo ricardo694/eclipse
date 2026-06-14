@@ -1,0 +1,323 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UIText_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: adda88c53c4b5f74b82b2e23cff07bf9, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 181686129479680
+    m_Localized: Join serveer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181434236358656
+    m_Localized: Multiplayer servers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180717589188608
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180633766023168
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 180470586626048
+    m_Localized: New game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 178894648201216
+    m_Localized: Story mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179113536344064
+    m_Localized: Multiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179202665304064
+    m_Localized: Login
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179405879332864
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 179528046825472
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181825543950336
+    m_Localized: Create server
+    m_Metadata:
+      m_Items: []
+  - m_Id: 181921555763200
+    m_Localized: Refresh list
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182147293204480
+    m_Localized: Connect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182490932531200
+    m_Localized: Server name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182596951953408
+    m_Localized: Number of players
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182763805560832
+    m_Localized: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182856180912128
+    m_Localized: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183001186390016
+    m_Localized: Log in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183139325792256
+    m_Localized: Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183242576973824
+    m_Localized: Username
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183338148384768
+    m_Localized: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183410701455360
+    m_Localized: Submit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183660711333888
+    m_Localized: Sign in with google
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183811848884224
+    m_Localized: Or
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183877502324736
+    m_Localized: New username
+    m_Metadata:
+      m_Items: []
+  - m_Id: 183961862361088
+    m_Localized: Email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184057635098624
+    m_Localized: Confirm password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184190149939200
+    m_Localized: Create account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184329191116800
+    m_Localized: Enemies eliminater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184463308181504
+    m_Localized: Victories
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184546619641856
+    m_Localized: Close session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184773925752832
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 184845757403136
+    m_Localized: Default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185010761322496
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185079006842880
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185157381607424
+    m_Localized: Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185240827285504
+    m_Localized: Crouch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185310255599616
+    m_Localized: Move left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185438194454528
+    m_Localized: Move right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185544809467904
+    m_Localized: Actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185622446034944
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185725051293696
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185817435033600
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185903359545344
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186015779475456
+    m_Localized: Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186086382194688
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186149259005952
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186314690744320
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186412644519936
+    m_Localized: Mute all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186553245978624
+    m_Localized: Video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186617611767808
+    m_Localized: DIsplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190873416847360
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 190974067560448
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191248593145856
+    m_Localized: Vsync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191321234296832
+    m_Localized: Quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191444894961664
+    m_Localized: Brightness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191583961305088
+    m_Localized: Gameplay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191687925518336
+    m_Localized: Preferences
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191758922502144
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 191842447872000
+    m_Localized: Fps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192100791832576
+    m_Localized: Pixel art creator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192224024678400
+    m_Localized: Tools
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192321890373632
+    m_Localized: Brush size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192445207105536
+    m_Localized: Animation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192849663840256
+    m_Localized: Color and properties
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193000235159552
+    m_Localized: Active Color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 192688757755904
+    m_Localized: Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193070032572416
+    m_Localized: Guide silhouette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 193377437306880
+    m_Localized: Selector
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194043916406784
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194118616961024
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194438579441664
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 194707241390080
+    m_Localized: Really?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207292120518656
+    m_Localized: Idle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 207727787069440
+    m_Localized: Run
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
