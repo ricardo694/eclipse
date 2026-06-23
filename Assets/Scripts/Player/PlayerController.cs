@@ -11,23 +11,23 @@ public class PlayerController : MonoBehaviour
     [Header("Movimiento")]
     public float velocidad = 5f;
     public bool step1 = false;
-    public float timeByStep = 0.5f;
+    public float timeByStep = 0.4f;
     float cont = 0f;
 
     [Header("Salto")]
-    public float fuerzaSalto = 4.8f;
+    public float fuerzaSalto = 5f;
     public int maxSaltos = 1;
     private int saltosRestantes = 0;
     private bool enSuelo;
     private bool esSaltando;
     private Vector2 colliderSizeSalto;
     private Vector2 colliderOffsetSalto;
-    public float multiplicadorCorte = 0.65f;
+    public float multiplicadorCorte = 0.85f;
 
     [Header("Detección de Suelo")]
     public Vector2 tamañoDetector = new Vector2(0.8f, 0.05f);
-    public float offsetYDetector = 0.02f;
-    public float margenRaycastLateral = 0.05f;
+    public float offsetYDetector = 0.022f;
+    public float margenRaycastLateral = 0f;
 
     [Header("Feel")]
     public float coyoteTime = 0.12f;
@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCounter;
     private bool enSueloFisico; 
 
-    public float fallGravityMultiplier = 1.3f;
-    public float maxFallSpeed = 2f;
+    public float fallGravityMultiplier = 1.5f;
+    public float maxFallSpeed = 6f;
 
-    public float hangThreshold = 1.5f; 
-    public float hangGravity = 0.4f;
+    public float hangThreshold = 1.8f; 
+    public float hangGravity = 0.6f;
 
     [Header("Detección de Pared")]
-    public Vector2 tamañoDetectorPared = new Vector2(0.05f, 0.6f);
-    public float offsetXDetectorPared = 0.5f;
+    public Vector2 tamañoDetectorPared = new Vector2(0.04f, 0.2f);
+    public float offsetXDetectorPared = 0.34f;
     private bool tocandoPared;
     private float direccionPared; 
 
@@ -57,12 +57,13 @@ public class PlayerController : MonoBehaviour
     public float duracionPostWallJump = 0.15f; 
 
     [Header("Vida")]
-    public int vida = 20;
+    private int vidaMaxima ;
+    public int vida = 4;
     public bool muerto;
 
     [Header("Daño")]
-    public float fuerzaRebote = 0.2f;
-    public float duracionInmunidad = 1f; 
+    public float fuerzaRebote = 4f;
+    public float duracionInmunidad = 0.6f; 
     public float duracionAnimDano = 0.5f;
     private bool recibiendoDano;
     private SpriteRenderer spriteRenderer;
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Dash")]
-    public float fuerzaDash = 14f;
+    public float fuerzaDash = 20f;
     public float duracionDash = 0.15f;
     public float cooldownDash = 1f;
     private bool dasheando;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Agacharse")]
     public float velocidadAgachado = 2.5f;
-    public float radioCheckArriba = 0.2f;
+    public float radioCheckArriba = 0.96f;
     public LayerMask capaTecho;
     private bool agachado;
     private Vector2 colliderSizeNormal;
@@ -109,13 +110,16 @@ public class PlayerController : MonoBehaviour
     private bool dashPulsado;
     private bool ataquePulsado;
     private bool agacharPulsado;
-
+    private bool interactPulsado;
+    public bool InteractPulsado => interactPulsado;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f); // ← fuerza Z=0
+
+        vidaMaxima = vida;
 
         colliderSizeNormal   = col.size;
         colliderOffsetNormal = col.offset;
@@ -126,12 +130,30 @@ public class PlayerController : MonoBehaviour
         colliderOffsetSalto = new Vector2(col.offset.x, col.offset.y + col.size.y * 0.1f);
     }
     //===================================================================== Callbacks del nuevo Input System =====================================================================
- 
+    void OnEnable()
+    {
+        StartCoroutine(ReiniciarInput());
+    }
+
+    IEnumerator ReiniciarInput()
+    {
+        yield return null;
+        InputSystem.ResetHaptics();
+        
+        interactPulsado = false;
+        saltoPulsado = false;
+        dashPulsado = false;
+        ataquePulsado = false;
+    }
 public void OnMove(InputAction.CallbackContext context)
 {
     inputMovimiento = context.ReadValue<Vector2>();
 }
-
+public void OnInteract(InputAction.CallbackContext context)
+{
+    
+    if (context.performed) interactPulsado = true;
+}
 public void OnJump(InputAction.CallbackContext context)
 {
     if (context.performed) saltoPulsado = true;
@@ -158,6 +180,7 @@ public void CrouchCanceled(InputAction.CallbackContext context)
 {
     if (context.canceled) agacharPulsado = false;
 }
+
     // =====================================================================
 void Update()
 {
@@ -313,10 +336,12 @@ void Update()
         saltoPulsado  = false;
         dashPulsado   = false;
         ataquePulsado = false;
+        
     }
 
     Animaciones();
 }
+
 
     public void IniciarDash()
     {
@@ -349,14 +374,11 @@ void Update()
             {
                 muerto=true;
 
-                if (GameManager.Instance != null)
-                {
-                    GameManager.Instance.GameOver();
-                }
+                StartCoroutine(MuerteYGameOver());
             }
             else
             {
-                 StopAllCoroutines();
+                StopAllCoroutines();
                 //Rebote
                 Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
                 rb.AddForce(rebote*fuerzaRebote, ForceMode2D.Impulse);  
@@ -365,6 +387,26 @@ void Update()
             }
     
         }
+    }
+
+    public void Respawn(Vector3 posicionCheckpoint)
+    {
+        muerto = false;
+        recibiendoDano = false;
+        atacando = false;
+        vida = vidaMaxima;
+        
+        transform.position = posicionCheckpoint;
+        rb.linearVelocity = Vector2.zero;
+
+        // Restaura colisiones con enemigos ← AGREGAR ESTO
+        int layerPlayer = gameObject.layer;
+        int layerEnemy = LayerMask.NameToLayer("Enemy");
+        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemy, false);
+
+        animator.SetBool("muerto", false);
+        animator.SetBool("recibiendoDano", false);
+        spriteRenderer.enabled = true; 
     }
 
     private IEnumerator RecuperarseDeDano()
@@ -395,6 +437,14 @@ void Update()
         //restaurar colisiones
         Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemy, false);
   
+    }
+
+    IEnumerator MuerteYGameOver()
+    {
+        yield return new WaitForSeconds(1.5f);
+        
+        if (GameManager.Instance != null)
+            GameManager.Instance.GameOver();
     }
 
     private IEnumerator Parpadeo()
@@ -559,6 +609,11 @@ void Update()
         comboContador = 0;
         comboRegistrado = false;
     }
+    void LateUpdate()
+    {
+        interactPulsado = false;
+    }
+    
 
     void OnDrawGizmos()
     {

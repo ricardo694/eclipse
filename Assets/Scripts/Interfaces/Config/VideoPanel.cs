@@ -42,8 +42,9 @@ public class VideoPanel : MonoBehaviour
 
     // Si tienes un panel/imagen overlay para simular brillo:
     // asigna aquí una Image con color negro y alpha variable
-    [Header("Brightness Overlay (opcional)")]
-    public CanvasGroup brightnessOverlay;
+    [Header("Brightness Overlay ")]
+     public CanvasGroup overlayOscuro;  // negro — para oscurecer
+    public CanvasGroup overlayClaro;   // blanco — para aclarar
 
     // ---------------------------------------------------------
     // Botones
@@ -234,15 +235,11 @@ public class VideoPanel : MonoBehaviour
 
     private void ApplyBrightness(float value)
     {
-        // Opción A: overlay negro (soportado en todas las plataformas)
-        if (brightnessOverlay != null)
-        {
-            // value 0.5 → alpha 0.5 (muy oscuro)
-            // value 1.0 → alpha 0   (normal)
-            // value 1.5 → alpha 0   (no podemos ir más brillante con overlay negro)
-            brightnessOverlay.alpha = Mathf.Clamp01(1f - value);
-        }
+        if (overlayOscuro != null)
+            overlayOscuro.alpha = value < 1f ? Mathf.Clamp01(1f - value) : 0f;
 
+        if (overlayClaro != null)
+            overlayClaro.alpha = value > 1f ? Mathf.Clamp01(value - 1f) : 0f;
     }
 
     // =========================================================
@@ -317,7 +314,7 @@ public class VideoPanel : MonoBehaviour
 
     private void OnExit()
     {
-        LoadValues();
+        SaveValues();
         if (SceneManager.GetActiveScene().name == "config")
             SceneManager.LoadScene("Menu");
         else

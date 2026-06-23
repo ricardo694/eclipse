@@ -78,4 +78,9 @@ public class Pausa : MonoBehaviour
         menuConfig.SetActive(false);
         menuPausa.SetActive(true);
     }
+    public void VolverAlMenu()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("StoryMode");
+    }
 }

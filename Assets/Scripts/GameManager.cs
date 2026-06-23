@@ -14,8 +14,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public Button reiniciarButton;
     public Button menuButton;
-
     private bool gameOverActivo = false;
+
+    [Header("Checkpoint")]
+    public Vector3 checkpointPosition;
+    private Checpoint checkpointActual;
+
+    public Button revivirButton;
 
     void Awake()
     {
@@ -41,7 +46,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(CargarIdioma());
+
+        int[] fpsOptions = { 30, 60, 120, 144, 240, 0 };
+            int fpsIndex = PlayerPrefs.GetInt("FPSIndex", 2);
+            Application.targetFrameRate = fpsOptions[fpsIndex];
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
@@ -51,29 +59,29 @@ public class GameManager : MonoBehaviour
 
         if (menuButton != null)
             menuButton.onClick.AddListener(VolverAlMenu);
-    }
 
-    // ← CargarIdioma va AQUÍ, fuera de Start y Awake
-    private IEnumerator CargarIdioma()
-    {
-        yield return LocalizationSettings.InitializationOperation;
+        if (revivirButton != null)
+        revivirButton.onClick.AddListener(Revivir); 
 
-        int savedIndex = PlayerPrefs.GetInt("LanguageIndex", 0);
-        var locales = LocalizationSettings.AvailableLocales.Locales;
-        if (savedIndex < locales.Count)
-            LocalizationSettings.SelectedLocale = locales[savedIndex];
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+                checkpointPosition = player.transform.position;
+        }
     }
 
     void Update()
     {
         if (gameOverActivo && Keyboard.current.rKey.wasPressedThisFrame)
-            ReiniciarJuego();
+            Revivir(); // ← R para revivir en checkpoint
 
-        if (gameOverActivo && (Keyboard.current.mKey.wasPressedThisFrame || 
+        if (gameOverActivo && Keyboard.current.tKey.wasPressedThisFrame)
+            ReiniciarJuego(); // ← t para reiniciar desde cero
+
+        if (gameOverActivo && (Keyboard.current.mKey.wasPressedThisFrame ||
             Keyboard.current.escapeKey.wasPressedThisFrame))
             VolverAlMenu();
     }
-
     public void GameOver()
     {
         if (gameOverActivo) return;
@@ -83,8 +91,8 @@ public class GameManager : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
-        if (gameOverText != null)
-            gameOverText.text = "¡Has Perdido!";
+        Time.timeScale = 0f;
+
     }
 
     public void ReiniciarJuego()
@@ -101,6 +109,41 @@ public class GameManager : MonoBehaviour
     public void VolverAlMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        if (MusicaManager.Instance != null)
+            MusicaManager.Instance.PararMusica();
+        SceneManager.LoadScene("StoryMode");
     }
+
+    public void ActualizarCheckpoint(Vector3 nuevaPosicion, Checpoint nuevoCheckpoint)
+    {
+        checkpointPosition = nuevaPosicion;
+        checkpointActual = nuevoCheckpoint;
+    }
+
+    public void RespawnJugador()
+    {
+        StartCoroutine(RespawnCoroutine());
+    }
+
+    public void Revivir()
+    {
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
+        gameOverActivo = false;
+        Time.timeScale = 1f;
+        StartCoroutine(RespawnCoroutine());
+    }
+
+
+    IEnumerator RespawnCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            player.GetComponent<PlayerController>().Respawn(checkpointPosition);
+    }
+
+  
 }

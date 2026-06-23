@@ -23,34 +23,40 @@ public class GameplaySettings : MonoBehaviour
     }
 
     // ── Idioma ────────────────────────────────────────────────
-    private IEnumerator SetupLanguageDropdown()
-    {
-        // Espera a que el sistema de localización esté listo
-        yield return LocalizationSettings.InitializationOperation;
+   private IEnumerator SetupLanguageDropdown()
+{
+    yield return LocalizationSettings.InitializationOperation;
 
-        languageDropdown.ClearOptions();
-        var options = new System.Collections.Generic.List<string>();
+    languageDropdown.ClearOptions();
+    var options = new System.Collections.Generic.List<string>();
 
-        var locales = LocalizationSettings.AvailableLocales.Locales;
-        foreach (var locale in locales)
-            options.Add(locale.LocaleName);
+    var locales = LocalizationSettings.AvailableLocales.Locales;
+    foreach (var locale in locales)
+        options.Add(locale.LocaleName);
 
-        languageDropdown.AddOptions(options);
+    languageDropdown.AddOptions(options);
 
-        // Seleccionar el idioma actual guardado
-        int savedIndex = PlayerPrefs.GetInt("LanguageIndex", 0);
-        languageDropdown.value = savedIndex;
-        languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
-
-        _localesLoaded = true;
-    }
+    // Seleccionar el idioma activo actualmente
+    var current = LocalizationSettings.SelectedLocale;
+    int currentIndex = locales.IndexOf(current);
+    
+    // ← primero marcamos loaded, luego asignamos el valor
+    _localesLoaded = true;
+    languageDropdown.value = currentIndex >= 0 ? currentIndex : 0;
+    
+    languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+}
 
     private void OnLanguageChanged(int index)
     {
+         
         if (!_localesLoaded) return;
         var locales = LocalizationSettings.AvailableLocales.Locales;
         if (index < locales.Count)
-            LocalizationSettings.SelectedLocale = locales[index];
+        {
+            string codigo = locales[index].Identifier.Code;
+            IdiomaManager.Instance?.CambiarIdioma(codigo);
+        }
     }
 
     // ── FPS ───────────────────────────────────────────────────
@@ -73,16 +79,11 @@ public class GameplaySettings : MonoBehaviour
     // ── Botones ───────────────────────────────────────────────
     public void OnSave()
     {
-        // Guardar idioma
-        PlayerPrefs.SetInt("LanguageIndex", languageDropdown.value);
-
-        // Guardar FPS
-        int fpsIndex = fpsDropdown.value;
-        PlayerPrefs.SetInt("FPSIndex", fpsIndex);
-        Application.targetFrameRate = fpsOptions[fpsIndex];
-
+        PlayerPrefs.SetInt("FPSIndex", fpsDropdown.value);
+        Application.targetFrameRate = fpsOptions[fpsDropdown.value];
         PlayerPrefs.Save();
     }
+
 
     public void OnDefault()
     {

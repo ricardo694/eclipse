@@ -15,32 +15,14 @@ MonoBehaviour:
   m_GroupName: Localization-Locales
   m_GUID: c960437537b58ee4f954b9a07dbfee2e
   m_SerializeEntries:
-  - m_GUID: 083eae9feab246b4e860cc73745aa05b
-    m_Address: Portuguese (pt)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0e0fc9829cf894e4e985adf70468e99e
     m_Address: English (en)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2809a6f08eff766498119dd074bb51fc
-    m_Address: French (fr)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 85652bc93f454eb489feee0b8bc4e5c4
     m_Address: Spanish (es)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d6cd2ceb65b53d243918534c5e8c94b8
-    m_Address: German (de)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale

@@ -131,7 +131,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 184329191116800
-    m_Localized: Enemies eliminater
+    m_Localized: Enemies eliminated
     m_Metadata:
       m_Items: []
   - m_Id: 184463308181504
@@ -316,6 +316,71 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 207727787069440
     m_Localized: Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497091581857792
+    m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497392309260288
+    m_Localized: Eclipsera- Story mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2501568191877120
+    m_Localized: Before the fragments... there was a seventh kingdom.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2501916012924928
+    m_Localized: A kingdom where everything coexisted. Until something arrived.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502131805671424
+    m_Localized: It didn't conquer. It didn't negotiate. It left no warnings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502311519014912
+    m_Localized: It just erased.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502397154119680
+    m_Localized: Among the fragments... something survived.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502490200559616
+    m_Localized: Or at least... something persisted.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502544860729344
+    m_Localized: Your being was erased... but your mind persists.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502790814715904
+    m_Localized: I don't remember who I am. I don't remember where I come from. But
+      I know one thing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2503020293476352
+    m_Localized: If I want answers... I must find them among the fragments.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2506907016581120
+    m_Localized: You are still here. That is enough for now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2507059697635328
+    m_Localized: 'Do not try to remember everything at once. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2509534135668736
+    m_Localized: Your time has not yet come
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3131746047840256
+    m_Localized: Respawn at checkpoint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3171855161970688
+    m_Localized: Your mind is not ready.
     m_Metadata:
       m_Items: []
   references:

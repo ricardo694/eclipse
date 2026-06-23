@@ -47,7 +47,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 179202665304064
-    m_Localized: Acceso
+    m_Localized: Logear
     m_Metadata:
       m_Items: []
   - m_Id: 179405879332864
@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 184845757403136
-    m_Localized: Reestablecer
+    m_Localized: Restablecer
     m_Metadata:
       m_Items: []
   - m_Id: 185010761322496
@@ -203,7 +203,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 186149259005952
-    m_Localized: Efectos especiales
+    m_Localized: SFX
     m_Metadata:
       m_Items: []
   - m_Id: 186314690744320
@@ -316,6 +316,71 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 207727787069440
     m_Localized: Correr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497091581857792
+    m_Localized: Omitir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497392309260288
+    m_Localized: Eclipsera- Modo historia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2501568191877120
+    m_Localized: "Antes de los fragmentos... Exist\xEDa un s\xE9ptimo reino."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2501916012924928
+    m_Localized: "Un reino donde todo coexist\xEDa. Hasta que algo lleg\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502131805671424
+    m_Localized: "No conquist\xF3. No negoci\xF3. No dej\xF3 advertencias."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502311519014912
+    m_Localized: "Solo borr\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502397154119680
+    m_Localized: "Entre los fragmentos... Algo sobrevivi\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502490200559616
+    m_Localized: "O al menos... Algo persisti\xF3."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502544860729344
+    m_Localized: Tu ser fue borrado... pero tu mente persiste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2502790814715904
+    m_Localized: "No recuerdo qui\xE9n soy. No recuerdo de d\xF3nde vengo. Pero s\xE9
+      una cosa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2503020293476352
+    m_Localized: "Si dese\xF3 respuestas... Deber\xE9 encontrarlas entre los fragmentos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2506907016581120
+    m_Localized: "Sigues aqu\xED. Eso es suficiente por ahora."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2507059697635328
+    m_Localized: 'No intentes recordar todo de golpe. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2509534135668736
+    m_Localized: "Tu hora a\xFAn no ha llegado"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3131746047840256
+    m_Localized: Revivir desde el punto de control
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3171855161970688
+    m_Localized: "Tu mente no est\xE1 lista."
     m_Metadata:
       m_Items: []
   references:

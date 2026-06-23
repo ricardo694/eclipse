@@ -6,11 +6,11 @@ public class BotonUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UISoundController.Instance.PlayHover();
+        UISoundController.Instance?.PlayHover();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UISoundController.Instance.PlayClick();
+        UISoundController.Instance?.PlayClick();
     }
 }

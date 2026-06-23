@@ -149,6 +149,10 @@ public class ControlsPanel : MonoBehaviour
         if (row == null) return;
 
         if (!_actionPaths.TryGetValue(gameAction, out var path)) return;
+        
+        // ← verifica que inputActions no sea null
+        if (inputActions == null) return;
+        
         var action = inputActions.FindActionMap(path.map)?.FindAction(path.action);
         if (action == null) return;
 
@@ -162,7 +166,6 @@ public class ControlsPanel : MonoBehaviour
 
         row.buttonLabel.text = display.ToUpper();
     }
-
     private void RefreshAllLabels()
     {
         foreach (var row in rows)
