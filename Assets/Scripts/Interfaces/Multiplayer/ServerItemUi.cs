@@ -17,33 +17,39 @@ public class ServerItemUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public Color colorJugadoresNormal = Color.white;
     public Color colorJugadoresLleno  = new Color(1f, 0.3f, 0.3f); // rojo
 
+    [Header("Referencias texto")]
+    public TMP_Text txtNombre;
+    public TMP_Text txtJugadores;
+
     private Image fondo;
     private Outline borde;
-    private TMP_Text txtJugadores;
     private bool seleccionado = false;
-
-    // Referencia estática para saber cuál está seleccionado
+    private System.Action _onSeleccionado;
     private static ServerItemUI itemActual;
 
-    void Start()
+    void Awake()
     {
         fondo  = GetComponent<Image>();
         borde  = GetComponent<Outline>();
 
-        // Si no tiene Outline, lo agrega automáticamente
         if (borde == null)
             borde = gameObject.AddComponent<Outline>();
 
-        txtJugadores = transform.Find("TxtJugadores").GetComponent<TMP_Text>();
+        borde.effectColor    = colorBordeNormal;
+        borde.effectDistance = new Vector2(2, -2);
 
-        // Configura el borde inicial
-        borde.effectColor     = colorBordeNormal;
-        borde.effectDistance  = new Vector2(2, -2);
-
-        ActualizarColorJugadores();
         PonerEstadoNormal();
     }
 
+    public void Setup(string nombre, int jugadores, int maxJugadores, System.Action onSeleccionado)
+    {
+        _onSeleccionado = onSeleccionado;
+
+        if (txtNombre != null) txtNombre.text = nombre;
+        if (txtJugadores != null) txtJugadores.text = $"{jugadores}/{maxJugadores}";
+
+        ActualizarColorJugadores();
+    }
     public void OnPointerEnter(PointerEventData e)
     {
         if (!seleccionado)
@@ -68,6 +74,8 @@ public class ServerItemUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         fondo.color       = colorSeleccionado;
         borde.effectColor = colorBordeSeleccionado;
         borde.effectDistance = new Vector2(3, -3);
+
+        _onSeleccionado?.Invoke();
     }
 
     public void Deseleccionar()
@@ -87,7 +95,6 @@ public class ServerItemUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         if (txtJugadores == null) return;
 
-        // Lee el texto "6/20" y compara los números
         string[] partes = txtJugadores.text.Split('/');
         if (partes.Length == 2 &&
             int.TryParse(partes[0], out int actual) &&

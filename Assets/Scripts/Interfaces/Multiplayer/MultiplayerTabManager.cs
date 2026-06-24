@@ -5,21 +5,30 @@ using TMPro;
 public class MultiplayerTabManager : MonoBehaviour
 {
     [Header("Paneles")]
-    public GameObject panelJoinServer;      
-    public GameObject panelCreateServer;    
+    [SerializeField] private GameObject panelJoinServer;      
+    [SerializeField] private GameObject panelCreateServer;    
 
     [Header("Botones tab")]
-    public Button btnJoin;
-    public Button btnCreate;
+    [SerializeField] private Button btnJoin;
+    [SerializeField] private Button btnCreate;
 
-    [Header("Colores tab activo/inactivo")]
-    public Color colorActivo   = new Color(0f, 0.8f, 0.8f);     
-    public Color colorInactivo = new Color(0.3f, 0.3f, 0.3f);   
+    [Header("Botones de acción")]
+    [SerializeField] private Button btnConnect;
+    [SerializeField] private Button btnRefresh;
+
+    [Header("Lista de Salas")]
+    [SerializeField] private Transform contenedorSalas;
+    [SerializeField] private GameObject prefabServerItem;
 
     [Header("Inputs del formulario")]
-    public TMP_InputField inputNombre;
-    public TMP_InputField inputMaxJugadores;
-    public TMP_InputField inputPassword;
+    [SerializeField] private TMP_InputField inputNombre;
+    [SerializeField] private TMP_InputField inputMaxJugadores;
+    [SerializeField] private TMP_InputField inputPassword;
+
+    [Header("Feedback")]
+    [SerializeField] private TMP_Text txtEstado;
+
+    private string _salaSeleccionada;
 
     void Start()
     {
@@ -27,8 +36,98 @@ public class MultiplayerTabManager : MonoBehaviour
         MostrarJoinServer();
 
        
-        btnJoin.onClick.AddListener(MostrarJoinServer);
-        btnCreate.onClick.AddListener(MostrarCreateServer);
+        btnJoin.onClick.AddListener(() => MostrarPanel(true));
+        btnCreate.onClick.AddListener(() => MostrarPanel(false));
+        btnConnect.onClick.AddListener(ConectarSala);
+        btnRefresh.onClick.AddListener(RefrescarLista);
+
+        MostrarPanel(true);
+        if (LobbyManager.Instance != null)
+        {
+            LobbyManager.Instance.OnSesionesActualizadas += ActualizarLista;
+            LobbyManager.Instance.IniciarLobby();
+        }
+        else
+        {
+            Debug.LogError("LobbyManager.Instance es NULL en Start — revisa el orden de ejecución");
+        }
+
+    }
+
+    void OnEnable()
+    {
+        if( LobbyManager.Instance != null)
+            LobbyManager.Instance.OnSesionesActualizadas += ActualizarLista;
+    }
+
+    void OnDisable()
+    {
+        if (LobbyManager.Instance != null)
+            LobbyManager.Instance.OnSesionesActualizadas -= ActualizarLista;
+    }
+        void MostrarPanel(bool mostrarJoin)
+    {
+        panelJoinServer.SetActive(mostrarJoin);
+        panelCreateServer.SetActive(!mostrarJoin);
+    }
+
+
+    void ActualizarLista()
+    {
+        foreach (Transform hijo in contenedorSalas)
+            Destroy(hijo.gameObject);
+
+        foreach (var sesion in LobbyManager.Instance.SesionesDisponibles)
+        {
+            var item = Instantiate(prefabServerItem, contenedorSalas);
+            var ui   = item.GetComponent<ServerItemUI>();
+            string nombre = sesion.Name;
+            ui.Setup(nombre, sesion.PlayerCount, sesion.MaxPlayers, () =>
+            {
+                _salaSeleccionada = nombre;
+            });
+        }
+    }
+
+    void RefrescarLista()
+    {
+        SetEstado("Refrescando...");
+        ActualizarLista();
+    }
+
+    void ConectarSala()
+    {
+        if (string.IsNullOrEmpty(_salaSeleccionada))
+        {
+            SetEstado("Selecciona una sala primero.");
+            return;
+        }
+        SetEstado($"Conectando a {_salaSeleccionada}...");
+        LobbyManager.Instance.UnirseASesion(_salaSeleccionada);
+    }
+
+    public void CrearServidor()
+    {
+        string nombre = inputNombre.text.Trim();
+        string maxStr = inputMaxJugadores.text.Trim();
+
+        if (string.IsNullOrEmpty(nombre))
+        {
+            SetEstado("Escribe un nombre para la sala.");
+            return;
+        }
+
+        int max = 4;
+        if (!string.IsNullOrEmpty(maxStr)) int.TryParse(maxStr, out max);
+
+        SetEstado($"Creando sala '{nombre}'...");
+        LobbyManager.Instance.CrearSesion(nombre, max);
+    }
+
+    void SetEstado(string msg)
+    {
+        if (txtEstado != null) txtEstado.text = msg;
+        Debug.Log("[Lobby] " + msg);
     }
 
     public void MostrarJoinServer()
@@ -36,9 +135,7 @@ public class MultiplayerTabManager : MonoBehaviour
         panelJoinServer.SetActive(true);
         panelCreateServer.SetActive(false);
 
-        // Resalta el tab activo
-        btnJoin.GetComponentInChildren<TMP_Text>().color   = colorActivo;
-        btnCreate.GetComponentInChildren<TMP_Text>().color = colorInactivo;
+
     }
 
     public void MostrarCreateServer()
@@ -46,26 +143,6 @@ public class MultiplayerTabManager : MonoBehaviour
         panelJoinServer.SetActive(false);
         panelCreateServer.SetActive(true);
 
-        
-        btnCreate.GetComponentInChildren<TMP_Text>().color = colorActivo;
-        btnJoin.GetComponentInChildren<TMP_Text>().color   = colorInactivo;
-    }
-
-    
-    public void CrearServidor()
-    {
-        string nombre      = inputNombre.text;
-        string maxJugadores = inputMaxJugadores.text;
-        string password    = inputPassword.text;
-
-        
-        if (string.IsNullOrEmpty(nombre))
-        {
-            Debug.Log("El nombre del servidor no puede estar vacío");
-            return;
-        }
-
-        // Por ahora solo lo imprime — aquí irá la lógica de red después
-        Debug.Log($"Crear servidor: {nombre} | Max: {maxJugadores} | Pass: {password}");
+  
     }
 }

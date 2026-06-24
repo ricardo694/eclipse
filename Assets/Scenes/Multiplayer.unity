@@ -202,7 +202,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 846633356}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.999993
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -834,6 +834,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &238320053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238320055}
+  - component: {fileID: 238320054}
+  m_Layer: 0
+  m_Name: LobbyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &238320054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238320053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c39f83a3a30d6442a47a879c3d0ae0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LobbyManager
+--- !u!4 &238320055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238320053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 772.7707, y: 551.5038, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &241009137
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,19 +1017,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 252472434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1391076555}
-        m_TargetAssemblyTypeName: NavigationMultiplayer, Assembly-CSharp
-        m_MethodName: irAMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &252472434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1928,6 +1960,7 @@ GameObject:
   - component: {fileID: 663929340}
   - component: {fileID: 663929339}
   - component: {fileID: 663929338}
+  - component: {fileID: 663929341}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2009,6 +2042,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &663929341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663929337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &775844010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2813,6 +2890,62 @@ RectTransform:
   m_AnchoredPosition: {x: 284, y: 45}
   m_SizeDelta: {x: 347.686, y: 45.737}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1004497751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004497753}
+  - component: {fileID: 1004497752}
+  m_Layer: 0
+  m_Name: MultiplayerTabManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1004497752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004497751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b515b6c73366c40a9642e46b9d2cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerTabManager
+  panelJoinServer: {fileID: 1244811471}
+  panelCreateServer: {fileID: 1391106816}
+  btnJoin: {fileID: 1504126932}
+  btnCreate: {fileID: 203873590}
+  btnConnect: {fileID: 252472433}
+  btnRefresh: {fileID: 816138017}
+  contenedorSalas: {fileID: 1244811472}
+  prefabServerItem: {fileID: 5224083586221754836, guid: cc111981c26fcdd40bf3c63377e876f1, type: 3}
+  inputNombre: {fileID: 374297410}
+  inputMaxJugadores: {fileID: 662600545}
+  inputPassword: {fileID: 860681411}
+  txtEstado: {fileID: 0}
+--- !u!4 &1004497753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004497751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 772.7707, y: 551.5038, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1045631696
 GameObject:
   m_ObjectHideFlags: 0
@@ -3597,7 +3730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 324.99985}
+  m_AnchoredPosition: {x: 0, y: 324.99994}
   m_SizeDelta: {x: 1000, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1244811473
@@ -4276,7 +4409,6 @@ GameObject:
   - component: {fileID: 1391076554}
   - component: {fileID: 1391076553}
   - component: {fileID: 1391076555}
-  - component: {fileID: 1391076556}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -4361,27 +4493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22df9bbd4ab029b4b85a0f0ecc95fd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NavigationMultiplayer
---- !u!114 &1391076556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391076551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b515b6c73366c40a9642e46b9d2cfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerTabManager
-  panelJoinServer: {fileID: 775844010}
-  panelCreateServer: {fileID: 1391106816}
-  btnJoin: {fileID: 1504126932}
-  btnCreate: {fileID: 203873590}
-  colorActivo: {r: 0, g: 0.8, b: 0.8, a: 1}
-  colorInactivo: {r: 1, g: 1, b: 1, a: 1}
-  inputNombre: {fileID: 374297410}
-  inputMaxJugadores: {fileID: 662600545}
-  inputPassword: {fileID: 860681411}
 --- !u!1 &1391106816
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,7 +4510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1391106817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4567,7 +4678,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1391076556}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MultiplayerTabManager, Assembly-CSharp
         m_MethodName: CrearServidor
         m_Mode: 1
@@ -5447,3 +5558,5 @@ SceneRoots:
   - {fileID: 663929340}
   - {fileID: 2103856929}
   - {fileID: 235971778}
+  - {fileID: 238320055}
+  - {fileID: 1004497753}
