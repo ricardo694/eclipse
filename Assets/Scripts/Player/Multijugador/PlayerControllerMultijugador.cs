@@ -27,7 +27,7 @@ public class PlayerControllerMultijugador : NetworkBehaviour
 
     [Header("Salto")]
     public float fuerzaSalto     = 5;
-    public int   maxSaltos       = 1;
+    public int   maxSaltos       = 2;
     public float coyoteTime      = 0.12f;
     public float jumpBufferTime  = 0.12f;
     public float multiplicadorCorte = 0.65f;  
@@ -559,8 +559,6 @@ public class PlayerControllerMultijugador : NetworkBehaviour
         if (comboRegistrado && comboContador < 1)
         {
             comboContador++;
-            float dir = facingRight ? 1f : -1f;
-            rb.AddForce(new Vector2(dir * 6f, 0f), ForceMode2D.Impulse);
             Atacando();
         }
         else

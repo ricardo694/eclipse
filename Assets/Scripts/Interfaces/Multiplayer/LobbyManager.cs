@@ -64,7 +64,7 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
             GameMode    = GameMode.AutoHostOrClient,
             SessionName = nombreSala,
             PlayerCount = maxJugadores,
-            Scene = SceneRef.FromIndex(4)
+            Scene = SceneRef.FromIndex(13)
         };
 
         var result = await _gameRunner.StartGame(startArgs);
