@@ -34,8 +34,8 @@ public class EditorAnimacionController : MonoBehaviour
     public static readonly string[] NOMBRES_ANIM = {
         "Idle", "Run", "Jump", "Attack", "Crouch", "Damage"
     };
-    public static readonly int[] MAX_FRAMES = { 4, 4, 2, 3, 2, 2 };
-    public static readonly int[] FRAMES_OBLIGATORIOS = { 1, 2, 1, 2, 1, 1 };
+    public static readonly int[] MAX_FRAMES = { 3, 3, 3, 3, 3, 3 };
+    public static readonly int[] FRAMES_OBLIGATORIOS = { 1, 1, 1, 1, 1, 1 };
 
     private int _animActual = 0;
     private List<List<Texture2D>> _todasLasAnimaciones = new List<List<Texture2D>>();
@@ -181,10 +181,9 @@ public class EditorAnimacionController : MonoBehaviour
 
     void SeleccionarFrame(int idx)
     {
-        if (_frameActual < _todasLasAnimaciones[_animActual].Count)
-        {
-            GuardarFrameActual();
-        }
+
+        GuardarFrameActual();
+       
         _frameActual = idx;
         for (int i = 0; i < _frameObjs.Count; i++)
             {

@@ -95,6 +95,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 colliderSizeAgachado;
     private Vector2 colliderOffsetAgachado;
 
+    public bool EstaAgachado      => agachado;
+    public bool EstaAtacando      => atacando;
+    public bool EstaRecibiendoDano => recibiendoDano;
+    public bool EstaMuerto        => muerto;
+
 
     [Header("Componentes")]
     public Animator animator;
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour
     private bool agacharPulsado;
     private bool interactPulsado;
     public bool InteractPulsado => interactPulsado;
+   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -343,6 +349,9 @@ void Update()
 }
 
 
+
+
+
     public void IniciarDash()
     {
         dasheando = true;
@@ -369,6 +378,8 @@ void Update()
         if(!recibiendoDano)
         {
             recibiendoDano = true;
+
+            GetComponent<CustomCharacterLoader>()?.NotificarDano();
             vida-=cantDano;
             if (vida<=0)
             {
@@ -583,11 +594,26 @@ void Update()
     public void Atacando()
     {
         soundController.PlayAtacar();
-        atacando=true;
-        comboRegistrado=false;
-        animator.SetTrigger(comboContador.ToString());
+        atacando = true;
+        comboRegistrado = false;
+        
+        var loader = GetComponent<CustomCharacterLoader>();
+        if (loader != null && loader.EstaActivo)
+        {
+            loader.NotificarAtaque();
+            StartCoroutine(FinAtaqueCustom()); // termina el ataque manualmente
+        }
+        else
+        {
+            animator.SetTrigger(comboContador.ToString());
+        }
     }
 
+    IEnumerator FinAtaqueCustom()
+    {
+        yield return new WaitForSeconds(0.25f); // duración del ataque
+        DesactivaAtaque();
+    }
     public void IniciarCombo()
     {
         if (comboRegistrado && comboContador < 1)
@@ -604,6 +630,8 @@ void Update()
 
     public void DesactivaAtaque()
     {
+        
+        GetComponent<CustomCharacterLoader>()?.NotificarFinAtaque();
 
         atacando=false;
         comboContador = 0;

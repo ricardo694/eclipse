@@ -13,7 +13,7 @@ public class UILogin : MonoBehaviour
     public Button googleButton;       
 
     [Header("Feedback")]
-    public TMP_Text errorText;
+    public AlertPanel alertPanel;
     public GameObject loadingIndicator;
 
     [Header("Systems")]
@@ -23,16 +23,12 @@ public class UILogin : MonoBehaviour
     {
         if (signInButton != null)
             signInButton.onClick.AddListener(OnClickSignIn);
-        else
-            Debug.LogError(" UILogin: 'Sign In Button' no asignado en el Inspector.");
 
         if (googleButton != null)
-            googleButton.onClick.AddListener(OnClickGoogle);  // ← NUEVO
-        else
-            Debug.LogWarning(" UILogin: 'Google Button' no asignado en el Inspector.");
+            googleButton.onClick.AddListener(OnClickGoogle); 
 
 
-        if (errorText != null)        errorText.gameObject.SetActive(false);
+        if (alertPanel != null) alertPanel.Hide();
         if (loadingIndicator != null) loadingIndicator.SetActive(false);
     }
 
@@ -119,15 +115,12 @@ public class UILogin : MonoBehaviour
 
     private void ShowError(string message)
     {
-        if (errorText == null) return;
-        errorText.text = message;
-        errorText.gameObject.SetActive(true);
+        if (alertPanel != null) alertPanel.Show(message);
     }
 
     private void HideError()
     {
-        if (errorText == null) return;
-        errorText.gameObject.SetActive(false);
+        if (alertPanel != null) alertPanel.Hide();
     }
 
     private void SetLoading(bool isLoading)

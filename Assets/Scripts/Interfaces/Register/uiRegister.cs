@@ -12,19 +12,22 @@ public class UIRegister : MonoBehaviour
 
     [Header("Buttons")]
     public Button createAccountButton;
-    public Button signInWithGoogleButton;
 
     [Header("Systems")]
     public RegisterSystem registerSystem;
+    public LoginSystem loginSystem;
+    
+    [Header("Feedback")]
+    public AlertPanel alertPanel;
+    public GameObject loadingIndicator;
 
     // -------------------------------------------------------
     void Start()
     {
-        // Asigna listeners a los botones
         createAccountButton.onClick.AddListener(OnClickCreateAccount);
 
-        // Google aún no implementado
-        signInWithGoogleButton.onClick.AddListener(OnClickGoogle);
+        if (alertPanel != null) alertPanel.Hide();
+        if (loadingIndicator != null) loadingIndicator.SetActive(false);
     }
 
     // -------------------------------------------------------
@@ -35,21 +38,39 @@ public class UIRegister : MonoBehaviour
         string password        = passwordInput.text;
         string confirmPassword = confirmPasswordInput.text;
 
+        HideError();
+        SetLoading(true);
         registerSystem.Register(username, email, password, confirmPassword);
     }
-
-
-
-    private void OnClickGoogle()
+    public void OnRegisterSuccess()
     {
-        Debug.Log(" Google Sign-In aún no implementado.");
+        SetLoading(false);
+        ClearFields();
+        Debug.Log($" Registro exitoso, bienvenido {LoginSystem.Username ?? "usuario"}!");
+        SceneManager.LoadScene("Menu");
     }
 
-    // -------------------------------------------------------
-    /// <summary>
-    /// Limpia todos los campos del formulario.
-    /// Llámalo desde RegisterSystem cuando el registro sea exitoso.
-    /// </summary>
+    public void OnRegisterFailed(string message)
+    {
+        SetLoading(false);
+        ShowError(message);
+    }
+    private void ShowError(string message)
+    {
+        if (alertPanel != null) alertPanel.Show(message);
+    }
+
+    private void HideError()
+    {
+        if (alertPanel != null) alertPanel.Hide();
+    }
+
+    private void SetLoading(bool isLoading)
+    {
+        if (loadingIndicator != null) loadingIndicator.SetActive(isLoading);
+        if (createAccountButton != null) createAccountButton.interactable = !isLoading;
+
+    }
     public void ClearFields()
     {
         usernameInput.text        = "";

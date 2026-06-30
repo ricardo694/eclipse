@@ -13,7 +13,7 @@ public class LoginSystem : MonoBehaviour
 
     [Header("UI")]
     public UILogin uiLogin;
-
+    public static LoginSystem Instance { get; private set; }    
     public static string AccessToken { get; private set; }
     public static string UserId      { get; private set; }
     public static string Username    { get; private set; }
@@ -27,6 +27,15 @@ public class LoginSystem : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         UnityMainThreadDispatcher.Instance();
     }
 
@@ -88,7 +97,8 @@ public class LoginSystem : MonoBehaviour
             catch (Exception ex)
             {
                 Debug.LogError($"[RPC] {ex.Message}");
-                if (uiLogin != null) uiLogin.OnLoginFailed("Usuario no encontrado.");
+                string friendlyMessage = SupabaseErrorTranslator.Translate(ex.Message);
+                if (uiLogin != null) uiLogin.OnLoginFailed(friendlyMessage);
                 yield break;
             }
         }
@@ -137,7 +147,8 @@ public class LoginSystem : MonoBehaviour
             catch (Exception ex)
             {
                 Debug.LogError($"[Auth] {ex.Message}");
-                if (uiLogin != null) uiLogin.OnLoginFailed("Usuario o contraseña incorrectos.");
+                string friendlyMessage = SupabaseErrorTranslator.Translate(ex.Message);
+                if (uiLogin != null) uiLogin.OnLoginFailed(friendlyMessage);
                 yield break;
             }
         }
@@ -181,7 +192,8 @@ public class LoginSystem : MonoBehaviour
             catch (Exception ex)
             {
                 Debug.LogError($"[DB] {ex.Message}");
-                if (uiLogin != null) uiLogin.OnLoginFailed(ex.Message);
+                string friendlyMessage = SupabaseErrorTranslator.Translate(ex.Message);
+                if (uiLogin != null) uiLogin.OnLoginFailed(friendlyMessage);
             }
         }
     }
@@ -211,7 +223,8 @@ public class LoginSystem : MonoBehaviour
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
                 Debug.LogError($"[Google] {error}");
-                if (uiLogin != null) uiLogin.OnLoginFailed("Error al iniciar sesión con Google.");
+                string friendlyMessage = SupabaseErrorTranslator.Translate(error);
+                if (uiLogin != null) uiLogin.OnLoginFailed(friendlyMessage);
             });
         };
 
@@ -292,88 +305,130 @@ public class LoginSystem : MonoBehaviour
     }
 }
 
-private IEnumerator UpsertGoogleProfile(string accessToken, string userId, string email)
-{
-    string baseUsername = email.Split('@')[0].Replace(".", "_");
-    string newUsername  = baseUsername + UnityEngine.Random.Range(100, 999);
-
-    Debug.Log($"[Google] Upsert perfil para: {newUsername}");
-
-    // Primero intentar PATCH (actualizar si ya existe)
-    string patchUrl  = $"{supabaseUrl}/rest/v1/players?id=eq.{userId}";
-    string patchJson = $"{{\"username\":\"{EscapeJson(newUsername)}\",\"level\":1,\"coins\":0}}";
-
-    using (UnityWebRequest req = new UnityWebRequest(patchUrl, "PATCH"))
+    private IEnumerator UpsertGoogleProfile(string accessToken, string userId, string email)
     {
-        byte[] body = Encoding.UTF8.GetBytes(patchJson);
-        req.uploadHandler   = new UploadHandlerRaw(body);
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type",  "application/json");
-        req.SetRequestHeader("apikey",        supabaseKey);
-        req.SetRequestHeader("Authorization", $"Bearer {accessToken}");
-        req.SetRequestHeader("Prefer",        "return=representation");
+        string baseUsername = email.Split('@')[0].Replace(".", "_");
+        string newUsername  = baseUsername + UnityEngine.Random.Range(100, 999);
 
-        yield return req.SendWebRequest();
+        Debug.Log($"[Google] Upsert perfil para: {newUsername}");
 
-        string patchResponse = req.downloadHandler.text;
-        Debug.Log($"[Google] PATCH response: {patchResponse} | Code: {req.responseCode}");
+        // Primero intentar PATCH (actualizar si ya existe)
+        string patchUrl  = $"{supabaseUrl}/rest/v1/players?id=eq.{userId}";
+        string patchJson = $"{{\"username\":\"{EscapeJson(newUsername)}\",\"level\":1,\"coins\":0}}";
 
-        // Si PATCH actualizó algo retorna el row
-        if ((req.result == UnityWebRequest.Result.Success || req.responseCode == 200)
-            && patchResponse.Trim() != "[]" && !string.IsNullOrEmpty(patchResponse.Trim()))
+        using (UnityWebRequest req = new UnityWebRequest(patchUrl, "PATCH"))
         {
-            AccessToken = accessToken;
-            UserId      = userId;
-            Username    = newUsername;
-            Level       = 1;
-            Coins       = 0;
+            byte[] body = Encoding.UTF8.GetBytes(patchJson);
+            req.uploadHandler   = new UploadHandlerRaw(body);
+            req.downloadHandler = new DownloadHandlerBuffer();
+            req.SetRequestHeader("Content-Type",  "application/json");
+            req.SetRequestHeader("apikey",        supabaseKey);
+            req.SetRequestHeader("Authorization", $"Bearer {accessToken}");
+            req.SetRequestHeader("Prefer",        "return=representation");
 
-            Debug.Log($"[Google] Perfil actualizado → {Username}");
-            if (uiLogin != null) uiLogin.OnLoginSuccess();
+            yield return req.SendWebRequest();
+
+            string patchResponse = req.downloadHandler.text;
+            Debug.Log($"[Google] PATCH response: {patchResponse} | Code: {req.responseCode}");
+
+            // Si PATCH actualizó algo retorna el row
+            if ((req.result == UnityWebRequest.Result.Success || req.responseCode == 200)
+                && patchResponse.Trim() != "[]" && !string.IsNullOrEmpty(patchResponse.Trim()))
+            {
+                AccessToken = accessToken;
+                UserId      = userId;
+                Username    = newUsername;
+                Level       = 1;
+                Coins       = 0;
+
+                Debug.Log($"[Google] Perfil actualizado → {Username}");
+                if (uiLogin != null) uiLogin.OnLoginSuccess();
+                yield break;
+            }
+        }
+
+        // Si PATCH no encontró nada, hacer POST insertar nuevo
+        string insertUrl  = $"{supabaseUrl}/rest/v1/players";
+        string insertJson = $"{{\"id\":\"{userId}\",\"username\":\"{EscapeJson(newUsername)}\",\"level\":1,\"coins\":0}}";
+
+        using (UnityWebRequest req = new UnityWebRequest(insertUrl, "POST"))
+        {
+            byte[] body = Encoding.UTF8.GetBytes(insertJson);
+            req.uploadHandler   = new UploadHandlerRaw(body);
+            req.downloadHandler = new DownloadHandlerBuffer();
+            req.SetRequestHeader("Content-Type",  "application/json");
+            req.SetRequestHeader("apikey",        supabaseKey);
+            req.SetRequestHeader("Authorization", $"Bearer {accessToken}");
+            req.SetRequestHeader("Prefer",        "return=representation");
+
+            yield return req.SendWebRequest();
+
+            string insertResponse = req.downloadHandler.text;
+            Debug.Log($"[Google] INSERT response: {insertResponse} | Code: {req.responseCode}");
+
+            if (req.result == UnityWebRequest.Result.Success || req.responseCode == 201)
+            {
+                AccessToken = accessToken;
+                UserId      = userId;
+                Username    = newUsername;
+                Level       = 1;
+                Coins       = 0;
+
+                Debug.Log($"[Google] Perfil creado → {Username}");
+                if (uiLogin != null) uiLogin.OnLoginSuccess();
+            }
+            else
+            {
+                Debug.LogError($"[Google] Error creando perfil: {insertResponse}");
+                if (uiLogin != null) uiLogin.OnLoginFailed("No se pudo crear el perfil.");
+            }
+        }
+    }
+
+
+    public void UpdateUsername(string newUsername, Action<bool, string> onComplete)
+    {
+        StartCoroutine(UpdateUsernameCoroutine(newUsername, onComplete));
+    }
+
+    private IEnumerator UpdateUsernameCoroutine(string newUsername, Action<bool, string> onComplete)
+    {
+        if (string.IsNullOrWhiteSpace(newUsername) || newUsername.Trim().Length < 3)
+        {
+            onComplete?.Invoke(false, "El nombre de usuario debe tener al menos 3 caracteres.");
             yield break;
         }
-    }
 
-    // Si PATCH no encontró nada, hacer POST insertar nuevo
-    string insertUrl  = $"{supabaseUrl}/rest/v1/players";
-    string insertJson = $"{{\"id\":\"{userId}\",\"username\":\"{EscapeJson(newUsername)}\",\"level\":1,\"coins\":0}}";
+        string url  = $"{supabaseUrl}/rest/v1/players?id=eq.{UserId}";
+        string json = $"{{\"username\":\"{EscapeJson(newUsername.Trim())}\"}}";
 
-    using (UnityWebRequest req = new UnityWebRequest(insertUrl, "POST"))
-    {
-        byte[] body = Encoding.UTF8.GetBytes(insertJson);
-        req.uploadHandler   = new UploadHandlerRaw(body);
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type",  "application/json");
-        req.SetRequestHeader("apikey",        supabaseKey);
-        req.SetRequestHeader("Authorization", $"Bearer {accessToken}");
-        req.SetRequestHeader("Prefer",        "return=representation");
-
-        yield return req.SendWebRequest();
-
-        string insertResponse = req.downloadHandler.text;
-        Debug.Log($"[Google] INSERT response: {insertResponse} | Code: {req.responseCode}");
-
-        if (req.result == UnityWebRequest.Result.Success || req.responseCode == 201)
+        using (UnityWebRequest req = new UnityWebRequest(url, "PATCH"))
         {
-            AccessToken = accessToken;
-            UserId      = userId;
-            Username    = newUsername;
-            Level       = 1;
-            Coins       = 0;
+            byte[] body = Encoding.UTF8.GetBytes(json);
+            req.uploadHandler   = new UploadHandlerRaw(body);
+            req.downloadHandler = new DownloadHandlerBuffer();
+            req.SetRequestHeader("Content-Type",  "application/json");
+            req.SetRequestHeader("apikey",        supabaseKey);
+            req.SetRequestHeader("Authorization", $"Bearer {AccessToken}");
+            req.SetRequestHeader("Prefer",        "return=representation");
 
-            Debug.Log($"[Google] Perfil creado → {Username}");
-            if (uiLogin != null) uiLogin.OnLoginSuccess();
-        }
-        else
-        {
-            Debug.LogError($"[Google] Error creando perfil: {insertResponse}");
-            if (uiLogin != null) uiLogin.OnLoginFailed("No se pudo crear el perfil.");
+            yield return req.SendWebRequest();
+
+            string response = req.downloadHandler.text;
+            Debug.Log($"[Profile] Username update response: {response}");
+
+            if (req.result == UnityWebRequest.Result.Success || req.responseCode == 200)
+            {
+                Username = newUsername.Trim();
+                onComplete?.Invoke(true, null);
+            }
+            else
+            {
+                string friendlyMessage = SupabaseErrorTranslator.Translate(response);
+                onComplete?.Invoke(false, friendlyMessage);
+            }
         }
     }
-}
-
-
-    
     //  CERRAR SESIÓN
    
     public void Logout()

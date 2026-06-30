@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 4901606522060019937}
   - component: {fileID: 5102835520450446674}
   - component: {fileID: 2710285983627930752}
+  - component: {fileID: 6746308322176206532}
+  - component: {fileID: 78097742008384057}
   m_Layer: 6
   m_Name: Player_Multijugador
   m_TagString: Player
@@ -528,7 +530,37 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5102835520450446674}
+  - {fileID: 6746308322176206532}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &6746308322176206532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647471602633678873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
+--- !u!114 &78097742008384057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647471602633678873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ea4b3adfe217c4c8c6e62cc3011941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimEvents
 --- !u!1 &8612638922626967682
 GameObject:
   m_ObjectHideFlags: 0

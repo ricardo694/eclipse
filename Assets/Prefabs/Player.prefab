@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2571258116377154371}
   - component: {fileID: 2555101820920910196}
   - component: {fileID: 4901606522060019937}
+  - component: {fileID: -3922038650203523326}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -149,8 +150,16 @@ MonoBehaviour:
   margenRaycastLateral: 0
   coyoteTime: 0.12
   jumpBufferTime: 0.12
+  fallGravityMultiplier: 1.3
+  maxFallSpeed: 2
+  hangThreshold: 1.5
+  hangGravity: 0.4
   "tama\xF1oDetectorPared": {x: 0.04, y: 1.3}
   offsetXDetectorPared: 0.34
+  velocidadWallSlide: 0.8
+  fuerzaWallJumpX: 4
+  fuerzaWallJumpY: 5
+  duracionPostWallJump: 0.15
   vida: 20
   muerto: 0
   fuerzaRebote: 4
@@ -325,6 +334,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 926b2f1e-ce6d-498a-9823-f1b21727c7a9
     m_ActionName: 'UI/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c8f3058e-d17f-43ff-a9a3-17acd08f1353
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -490,6 +503,19 @@ MonoBehaviour:
   sonidoMov1: {fileID: 8300000, guid: 4214640a4f0da02488c420e1ede6e6f8, type: 3}
   sonidoMov2: {fileID: 8300000, guid: 200f515ce61d9b945a77c23d7de549e1, type: 3}
   sonidoAtacar: {fileID: 8300000, guid: 06bf16d54baa00442a944fd821ce6f6b, type: 3}
+--- !u!114 &-3922038650203523326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647471602633678873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e50b66820ac654db6b171e79182fc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomCharacterLoader
+  fps: 8
 --- !u!1 &8612638922626967682
 GameObject:
   m_ObjectHideFlags: 0

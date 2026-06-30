@@ -3,9 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class StoryModeSystem : MonoBehaviour
 {
+    public PanelSeleccionPersonaje panelSeleccion;
+// en el onClick:
+
     public void Jugar()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        panelSeleccion.Abrir();
     }
 
 
